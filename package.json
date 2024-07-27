@@ -1,0 +1,13 @@
+{
+    "name": "pdrenderkit",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/PDRenderKit.js",
+    "scripts": {
+        "minify": "npx terser src/PDRenderKit.js -c -m -o dist/PDRenderKit.js --config-file terser.config.json --name-cache terser.cache.json",
+        "minify-w": "chokidar 'src/PDRenderKit.js' -c 'npm run minify'"
+    },
+    "author": "",
+    "license": "GPL-3.0",
+    "devDependencies": {}
+}
