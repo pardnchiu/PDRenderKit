@@ -1,7 +1,7 @@
 {
     "name": "pdrenderkit",
     "version": "1.0.0",
-    "description": "A lightweight JavaScript framework with features such as separation of UI and data logic, data change monitoring, and automatic rendering.",
+    "description": "PDRenderKit contains a lightweight front-end framework designed to separate the front-end user interface and data logic.",
     "main": "dist/PDRenderKit.js",
     "scripts": {
         "minify": "npx terser src/PDRenderKit.js -c -m -o dist/PDRenderKit.js --config-file terser.config.json --name-cache terser.cache.json",
