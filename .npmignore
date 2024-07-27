@@ -12,7 +12,7 @@ Icon?
 .gitignore
 
 # 忽略源碼
-src/
+src
 
 # 忽略其他
 reset.sh

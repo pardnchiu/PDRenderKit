@@ -2,7 +2,7 @@ import { viewer as MDViewer } from "https://cdn.jsdelivr.net/gh/pardnchiu/PDMark
 
 const pre = `# PDRenderKit (JavaScript Library)
 
-![](https://img.shields.io/github/v/release/pardnchiu/PDRenderKit?color=red) ![](https://img.shields.io/github/size/pardnchiu/PDRenderKit/dist/%2FPDRenderKit.js?color=green) ![](https://img.shields.io/github/license/pardnchiu/PDRenderKit?color=blue) ![](https://img.shields.io/badge/creator-Pardn%20Chiu%20邱敬幃-A374BF)
+![](https://img.shields.io/github/v/release/pardnchiu/PDRenderKit?color=red) ![](https://img.shields.io/github/size/pardnchiu/PDRenderKit/dist%2FPDRenderKit.js?color=green) ![](https://img.shields.io/github/license/pardnchiu/PDRenderKit?color=blue) ![](https://img.shields.io/badge/creator-Pardn%20Chiu%20邱敬幃-A374BF)
 
 PDRenderKit 是一個輕量化前端框架，主旨在分離前端用戶界面和資料邏輯。
 提高代碼的可維護性和可讀性的同時，同時降低開發的複雜性。

@@ -1,13 +1,31 @@
 {
     "name": "pdrenderkit",
     "version": "1.0.0",
-    "description": "",
+    "description": "A lightweight JavaScript framework with features such as separation of UI and data logic, data change monitoring, and automatic rendering.",
     "main": "dist/PDRenderKit.js",
     "scripts": {
         "minify": "npx terser src/PDRenderKit.js -c -m -o dist/PDRenderKit.js --config-file terser.config.json --name-cache terser.cache.json",
         "minify-w": "chokidar 'src/PDRenderKit.js' -c 'npm run minify'"
     },
-    "author": "",
+    "files": [
+        "dist",
+        "static",
+        "index.html",
+        "interface.ts",
+        "LICENSE",
+        "README.md"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pardnchiu/PDRenderKit.git"
+    },
+    "keywords": [
+        "javascript-library",
+        "front-end-framework"
+    ],
+    "author": "Pardn Chiu",
     "license": "GPL-3.0",
+    "bugs": {},
+    "homepage": "https://github.com/pardnchiu/PDRenderKit#readme",
     "devDependencies": {}
 }
