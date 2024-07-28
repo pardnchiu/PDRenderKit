@@ -429,8 +429,9 @@ document.querySelector("input[name='test']");
 `;
 
 document.addEventListener('DOMContentLoaded', _ => {
+
     const viewer = new MDViewer({
-        delay: 0,
+        delay: 50,
         pre: pre
     });
 
@@ -444,4 +445,10 @@ document.addEventListener('DOMContentLoaded', _ => {
         "#nav".$.$$_class(this.scrollTop > 0, "min");
     });
 
+    const date = new Date();
+
+    // console.log(date.$format("yyyy/MM/DD/dd HH:mm:ss a"))
+
+    // "nav".$._data({ test: "1" });
+    // console.log("nav".$.$data("test"))
 })
