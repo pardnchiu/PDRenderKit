@@ -411,18 +411,6 @@ document.querySelector("input[name='test']");
 ]);
 \`\`\`
 
-## TypeScript Interface  
-
-- [String](./interface/string.ts)
-- [Number](./interface/number.ts)
-- [Array](./interface/array.ts)
-- [Object](./interface/object.ts)
-- [Map](./interface/map.ts)
-- [Date](./interface/date.ts)
-- [URL](./interface/url.ts)
-- [Element](./interface/element.ts)
-- [Image](./interface/image.ts)
-
 ***
 
 ©️ 2023 [Pardn Chiu](https://www.linkedin.com/in/pardnchiu)
@@ -445,7 +433,8 @@ document.addEventListener('DOMContentLoaded', _ => {
         "#nav".$.$$_class(this.scrollTop > 0, "min");
     });
 
-    const date = new Date();
+    // const date = new Date();
+    console.log("https://joball.tw".$url.href)
 
     // console.log(date.$format("yyyy/MM/DD/dd HH:mm:ss a"))
 

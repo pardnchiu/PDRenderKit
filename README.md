@@ -411,18 +411,6 @@ document.querySelector("input[name='test']");
 ]);
 ```
 
-## TypeScript Interface  
-
-- [String](./interface/string.ts)
-- [Number](./interface/number.ts)
-- [Array](./interface/array.ts)
-- [Object](./interface/object.ts)
-- [Map](./interface/map.ts)
-- [Date](./interface/date.ts)
-- [URL](./interface/url.ts)
-- [Element](./interface/element.ts)
-- [Image](./interface/image.ts)
-
 ***
 
 ©️ 2023 [Pardn Chiu](https://www.linkedin.com/in/pardnchiu)
