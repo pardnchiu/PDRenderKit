@@ -43,14 +43,14 @@ Improving code maintainability and readability while reducing development comple
 ## 如何使用 / How to use
 
 - ### 可直接下載套件
-```Shell
-npm install pdrenderkit
-```
+    ```Shell
+    npm install pdrenderkit
+    ```
 
 - ### 或是透過 `cdn.jsdelivr.new` 加入網站
-```HTML
-<script src="https://cdn.jsdelivr.net/gh/pardnchiu/PDRenderKit@[VERSION]/dist/PDRenderKit.js" copyright="Pardn Ltd">
-```
+    ```HTML
+    <script src="https://cdn.jsdelivr.net/gh/pardnchiu/PDRenderKit@[VERSION]/dist/PDRenderKit.js" copyright="Pardn Ltd">
+    ```
 
 - ### PD (原先命名$dom)
     自動渲染: 加載自動渲染，並在檢測到變化後自動渲染數據。
