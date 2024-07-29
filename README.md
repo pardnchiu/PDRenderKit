@@ -31,8 +31,8 @@ Improving code maintainability and readability while reducing development comple
     Reduces manual DOM manipulation, allowing you to focus more on the core logic of your application.
 
 - ### 輕量級 / Lightweight:
-    輕量化設計，壓縮至35KB，減少不必要的複雜性，提供更大靈活性，讓你輕鬆在網站中做使用。<br>
-    Lightweight design, compressed to `35KB`, reduces unnecessary complexity, offering greater flexibility for easy use on websites.
+    全功能的實現僅用了`34.2KB`，確保你能在網站中輕鬆高效地使用。<br>
+    Full functionality is achieved with only `34.2KB`, ensuring efficient and effortless use on your website.
 
 ## 範例 / Example
 
