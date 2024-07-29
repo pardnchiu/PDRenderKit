@@ -1,6 +1,6 @@
 # PDRenderKit 
 
-![](https://img.shields.io/github/v/release/pardnchiu/PDRenderKit?color=bb4444) ![](https://img.shields.io/npm/v/pdrenderkit?color=44bb44) ![](https://img.shields.io/github/size/pardnchiu/PDRenderKit/dist%2FPDRenderKit.js?color=4444bb) ![](https://img.shields.io/github/license/pardnchiu/PDRenderKit?color=bbbb44) 
+![](https://img.shields.io/github/v/release/pardnchiu/PDRenderKit?color=bb4444) ![](https://img.shields.io/npm/v/pdrenderkit?color=44bb44) ![](https://img.shields.io/github/size/pardnchiu/PDRenderKit/dist%2FPDRenderKit.js?color=4444bb) ![](https://img.shields.io/github/license/pardnchiu/PDRenderKit?color=bbbb44)<br>
 ![](https://img.shields.io/badge/tag-JavaScript%20Library-44bbbb) ![](https://img.shields.io/badge/creator-邱敬幃%20Pardn%20Chiu-bb44bb)
 
 PDRenderKit 是一個輕量化前端框架，主旨在分離前端用戶界面和資料邏輯。<br>
@@ -10,27 +10,27 @@ Improving code maintainability and readability while reducing development comple
 
 ## 特點 / Feature
 
-- **UI和數據邏輯分離 / Separation of UI and Data Logic:**<br>
+- ###### UI和數據邏輯分離 / Separation of UI and Data Logic:
     將前端畫面與資料邏輯分離，創建更清晰的結構，簡化維護工作。<br>
     Segregates front-end presentation from data logic, creating a clearer structure and simplifying maintenance tasks.
 
-- **減少重複代碼 / Reduction of Repetitive Code:**<br>
+- ###### 減少重複代碼 / Reduction of Repetitive Code:
     提供工具和實用功能使重複的代碼段最小化，提高代碼簡潔性。<br>
     Provides tools and utilities to minimize repetitive code sections, improving code conciseness.
 
-- **提高代碼可讀性 / Improved Code Readability:**<br>
+- ###### 提高代碼可讀性 / Improved Code Readability:
     模塊化設計增強代碼可讀性，使其更易於理解和協作。<br>
     Modular design enhances code readability, making it easier to understand and collaborate on.
 
-- **監聽數據變化 / Data Change Monitoring:**<br>
+- ###### 監聽數據變化 / Data Change Monitoring:
     根據數據變化自動實時更新用戶畫面，減少手動DOM操作步驟。<br>
     Automatically updates the user interface in real-time based on data changes, reducing manual DOM manipulation steps.
 
-- **自動渲染 / Automatic Rendering:**<br>
+- ###### 自動渲染 / Automatic Rendering:
     減少手動DOM操作，讓你更多地專注於應用的核心邏輯。<br>
     Reduces manual DOM manipulation, allowing you to focus more on the core logic of your application.
 
-- **輕量級 / Lightweight:**<br>
+- ###### 輕量級 / Lightweight:
     輕量級的特性，最小化不必要的複雜性，提供更大的靈活性，讓你在沒有框架約束的情況下自由使用。<br>
     Lightweight in nature, minimizing unnecessary complexity and providing greater flexibility, allowing you to use it freely without framework constraints.
 
@@ -42,11 +42,17 @@ Improving code maintainability and readability while reducing development comple
 
 ## 如何使用 / How to use
 
+- ###### 可直接下載套件
+```Shell
+npm install pdrenderkit
+```
+
+- ###### 或是透過 `cdn.jsdelivr.new` 加入網站
 ```HTML
 <script src="https://cdn.jsdelivr.net/gh/pardnchiu/PDRenderKit@[VERSION]/dist/PDRenderKit.js" copyright="Pardn Ltd">
 ```
 
-- **PD (原先命名$dom)**
+- ###### PD (原先命名$dom)
     自動渲染: 加載自動渲染，並在檢測到變化後自動渲染數據。
     Auto Rendering: Load auto-rendering and automatically render data changes after detection.
     | 標籤 / tag | 描述 / description |
@@ -66,7 +72,7 @@ Improving code maintainability and readability while reducing development comple
         則 `<p>共有 {{ LENGTH(array) }} 項</p>`
         為 `<p>共有 4 項</p>`
 
-- **:path / :html**
+- ###### :path / :html 範例
     *確保在測試 ':path' 時禁用瀏覽器的本地文件限制。<br>Make sure to disable local file restrictions in your browser or use a live server when you are testing ':path'.*
     **test.html**
     ```html
@@ -99,7 +105,7 @@ Improving code maintainability and readability while reducing development comple
     </body>
     ```
 
-- **:for**
+- ###### :for 範例
     ```html
     <body id="app">
         <ul>
@@ -124,7 +130,7 @@ Improving code maintainability and readability while reducing development comple
     </body>
     ```
 
-- **:for (Multiple)**
+- ###### :for 嵌套循環範例
     ```html
     <body id="app">
     <ul>
@@ -231,7 +237,7 @@ Improving code maintainability and readability while reducing development comple
     </body>
     ```
 
-- **:if**
+- ###### :if 範例
     ```html
     <body id="app">
         <h1 :if="heading == 1">{{ title }} {{ heading }}</h1>
@@ -275,7 +281,7 @@ Improving code maintainability and readability while reducing development comple
     </body>
     ```
 
-- **@event**
+- ###### @event 範例
     ```html
     <body id="app">
         <button @click="test">test</button>
@@ -292,7 +298,7 @@ Improving code maintainability and readability while reducing development comple
     </script>
     ```
 
-- **Rendering completed**
+- ###### Rendering completed 範例
     ```html
     <body id="app"></body>
     <script>
@@ -307,7 +313,7 @@ Improving code maintainability and readability while reducing development comple
 
 ## 擴展 / Extension
 
-- **Before**
+- ###### Before
     ```javascript
     let section = document.createElement("section");
     section.id = "#test";
@@ -339,7 +345,7 @@ Improving code maintainability and readability while reducing development comple
     input.type = "email";
     section.appendChild(input);
     ```
-- **After**
+- ###### After
     ```javascript
     document.body._child(
         "section#test"._([
