@@ -424,26 +424,23 @@ document.querySelector("input[name='test']");
 
 document.addEventListener('DOMContentLoaded', _ => {
 
-    const viewer = new MDViewer({
-        delay: 50,
-        pre: pre
+    const app = new PD({
+        id: "app",
+        next: _ => {
+            const viewer = new MDViewer({
+                delay: 50,
+                pre: pre
+            });
+        
+            document.body.appendChild(viewer.body);
+        
+            viewer.init();
+        
+            viewer.body.style.maxWidth = 1024 + "px";
+        
+            viewer.body.addEventListener("scroll", function () {
+                "#nav".$.$$_class(this.scrollTop > 0, "min");
+            });
+        }
     });
-
-    document.body.appendChild(viewer.body);
-
-    viewer.init();
-
-    viewer.body.style.maxWidth = 1024 + "px";
-
-    viewer.body.addEventListener("scroll", function () {
-        "#nav".$.$$_class(this.scrollTop > 0, "min");
-    });
-
-    // const date = new Date();
-    console.log("https://joball.tw".$url.href)
-
-    // console.log(date.$format("yyyy/MM/DD/dd HH:mm:ss a"))
-
-    // "nav".$._data({ test: "1" });
-    // console.log("nav".$.$data("test"))
 })
