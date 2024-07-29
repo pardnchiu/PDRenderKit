@@ -1,7 +1,7 @@
-# PDRenderKit (JavaScript Library)
-*原本名稱 PDExtension-js*
+# PDRenderKit 
 
-![](https://img.shields.io/github/v/release/pardnchiu/PDRenderKit?color=red) ![](https://img.shields.io/github/size/pardnchiu/PDRenderKit/dist%2FPDRenderKit.js?color=green) ![](https://img.shields.io/github/license/pardnchiu/PDRenderKit?color=blue) ![](https://img.shields.io/badge/creator-Pardn%20Chiu%20邱敬幃-A374BF)
+![](https://img.shields.io/github/v/release/pardnchiu/PDRenderKit?color=bb4444) ![](https://img.shields.io/npm/v/pdrenderkit?color=44bb44) ![](https://img.shields.io/github/size/pardnchiu/PDRenderKit/dist%2FPDRenderKit.js?color=4444bb) ![](https://img.shields.io/github/license/pardnchiu/PDRenderKit?color=bbbb44) 
+![](https://img.shields.io/badge/tag-JavaScript%20Library-44bbbb) ![](https://img.shields.io/badge/creator-邱敬幃%20Pardn%20Chiu-bb44bb)
 
 PDRenderKit 是一個輕量化前端框架，主旨在分離前端用戶界面和資料邏輯。<br>
 提高代碼的可維護性和可讀性的同時，同時降低開發的複雜性。<br>
