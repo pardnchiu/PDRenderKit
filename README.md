@@ -31,13 +31,12 @@ Improving code maintainability and readability while reducing development comple
     Reduces manual DOM manipulation, allowing you to focus more on the core logic of your application.
 
 - ### 輕量級 / Lightweight:
-    全功能的實現僅用了`34.2KB`，確保你能在網站中輕鬆高效地使用。<br>
-    Full functionality is achieved with only `34.2KB`, ensuring efficient and effortless use on your website.
+    全功能的實現僅用了`34KB`，確保你能在網站中輕鬆高效地使用。<br>
+    Full functionality is achieved with only `34KB`, ensuring efficient and effortless use on your website.
 
 ## 範例 / Example
 
 - [Website Template 25](https://github.com/pardnchiu/website-template-25)
-
 - [Website Template 26](https://github.com/pardnchiu/website-template-26)
 
 ## 如何使用 / How to use

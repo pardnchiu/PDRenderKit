@@ -1,6 +1,6 @@
 {
     "name": "pdrenderkit",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "description": "PDRenderKit contains a lightweight front-end framework designed to separate the front-end user interface and data logic.",
     "main": "dist/PDRenderKit.js",
     "scripts": {
@@ -11,7 +11,7 @@
         "dist",
         "static",
         "index.html",
-        "interface.ts",
+        "src/interface.ts",
         "LICENSE",
         "README.md"
     ],
@@ -23,9 +23,12 @@
         "javascript-library",
         "front-end-framework"
     ],
-    "author": "Pardn Chiu",
+    "author": "邱敬幃 Pardn Chiu",
     "license": "GPL-3.0",
-    "bugs": {},
+    "bugs": {
+        "url": "https://github.com/pardnchiu/PDRenderKit/issues",
+        "email": "git@pardn.io"
+    },
     "homepage": "https://github.com/pardnchiu/PDRenderKit#readme",
     "devDependencies": {}
 }
