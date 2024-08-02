@@ -56,9 +56,17 @@
         <!-- <span class="loader"></span> -->
         <nav id="nav" style="max-width: 1024px;">
             <a href="https://github.com/pardnchiu" target="_blank">
-                <i class="fa-brands fa-github"></i>
+                <!-- <i class="fa-brands fa-github"></i> -->
+                <!-- svg 插入範例 -->
+                <style>
+                    nav>a>svg {
+                        width: 1.5rem;
+                        height: 1.5rem;
+                    }
+                </style>
+                <span class="svg" src="static/image/github-brands-solid.svg"></span>
             </a>
-            <img class="head" src="https://pardn.io/image/head-s.jpg" alt="邱敬幃 Pardn Chiu" onclick="window.open('https://linkedin.com/in/pardnchiu')">
+            <img class="head lazyload" data-src="https://pardn.io/image/head-s.jpg" alt="邱敬幃 Pardn Chiu" onclick="window.open('https://linkedin.com/in/pardnchiu')">
             <a href="mailto:mail@pardn.ltd">
                 <i class="fa-regular fa-envelope"></i>
             </a>

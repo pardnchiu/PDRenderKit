@@ -1,422 +1,304 @@
-interface String {
-    // getParams: any[];
-    convertText: (key?: string, value?: string) => string;
-};
+interface Window {
+    PD: any; // 全域變數，用於存取 PD 物件。
+    _SVGListener: () => void; // 初始化 SVG 觀察者的函數。
+    _LazyListener: () => void; // 初始化懶載觀察者的函數。
+    _Listener: (target?: any) => void; // 初始化觀察者的函數，可以接受目標參數。
+    $key: (length: number) => string; // 生成指定長度隨機字串的函數。
+    $file: (file: any) => Promise<any>; // 讀取檔案並回傳 Promise 的函數。
+    $imageFromImageFile: (file: any) => Promise<any>; // 從圖像檔案生成圖片並回傳 Promise 的函數。
+    $imageFromVideoFile: (file: any) => Promise<any>; // 從影片檔案生成圖片並回傳 Promise 的函數。
+    $blob: (base64: any, mimeType: string) => Blob; // 將 base64 字串轉換為 Blob 物件的函數。
+    $cookie: (key: string) => any; // 獲取指定名稱的 Cookie 值。
+    _cookie: (name: string, body: any, expire: number) => void; // 設置 Cookie 的函數。
+    $: (value: string) => Element; // 選取 DOM 元素的函數。
+    $all: (value: string) => Element[]; // 選取所有符合條件的 DOM 元素的函數。
+    $url: (value: string) => URL; // 將字串轉換為 URL 物件的函數。
+    _child: (value: ChildNode | Element | string | number | (ChildNode | Element | string | number)[], before: ChildNode | Element | number | undefined) => void;
+    __child: (value: ChildNode | Element | string | number | (ChildNode | Element | string | number)[]) => void
+}
 
 interface String {
-    $len: number;
-    $num: number | undefined;
-    $json: JSON | undefined;
-    $html: string;
-    $img: Promise<any>;
-    $$json: boolean;
-    $$mt: boolean;
+    $len: number; // 字串長度
+    $num: number | undefined; // 轉換為數字後的值，若無法轉換則為 undefined
+    $json: JSON | undefined; // 轉換為 JSON 後的值，若無法轉換則為 undefined
+    $html: string; // 轉換為 HTML 實體編碼後的值
+    $img: Promise<any>; // 轉換為圖片並回傳 Promise
+    $$json: boolean; // 是否為 JSON 格式
+    $$mt: boolean; // 是否為空字串
 
-    __: (target?: string | RegExp, replace?: string) => string;
-    $ary: (target?: string | RegExp) => string[];
-    $regexp: (flags?: string) => RegExp;
-    $fit: (regex: RegExp) => string | string[] | undefined;
-    $en: (component: Boolean) => String;
-    $de: (component: Boolean) => String;
-    $copy: () => any;
-    $$: (equalTo?: String | RegExp) => boolean;
-    $$200: () => Promise<any>;
+    convertText: (key?: string, value?: string) => string; // 將模板字串中的變數替換為指定值
 
-    // URL 操作
-    $url: URL;
-    $queryAll: { [key: string]: string };
+    __: (target?: string | RegExp, replace?: string) => string; // 替換字串中符合條件的部分
+    $ary: (target?: string | RegExp) => string[]; // 將字串切割為陣列
+    $regexp: (flags?: string) => RegExp; // 生成正則表達式
+    $fit: (regex: RegExp) => string | string[] | undefined; // 符合條件的子字串或陣列
+    $en: (component: Boolean) => String; // 編碼 URI (true: 完整編碼, false: 部分編碼)
+    $de: (component: Boolean) => String; // 解碼 URI (true: 完整解碼, false: 部分解碼)
+    $copy: () => any; // 將字串複製到剪貼簿
+    $$: (equalTo?: String | RegExp) => boolean; // 是否等於指定的字串或符合正則表達式
+    $$200: (isImage?: Boolean) => Promise<any>; // 確認字串為有效 URL，並回傳 Promise
 
-    $req: (body: { [key: string]: string }) => void;
-    _history: (title?: string) => URL;
-    __history: (title?: string) => URL;
-    _query: (value?: { [key: string]: string }) => URL;
-    __query: (value?: { [key: string]: string }) => URL;
-    query_: (value?: string | string[]) => URL;
-    query__: (value?: string | string[]) => URL;
-    $query: (key?: string) => string;
+    $url: URL; // 將字串轉換為 URL 物件
+    $queryAll: { [key: string]: string }; // 解析 URL 中的查詢參數
 
-    // Element 操作
-    _fa: Element;
-    $: Element;
-    $all: Element[];
-    
-    _: (val0?: any, val1?: any) => Element;
+    $req: (body: { [key: string]: string }) => void; // 發送 HTTP 請求
+    _history: (title?: string) => URL; // 推送歷史紀錄並更新 URL
+    __history: (title?: string) => URL; // 替換歷史紀錄並更新 URL
+    _query: (value?: { [key: string]: string }) => URL; // 更新 URL 查詢參數
+    __query: (value?: { [key: string]: string }) => URL; // 移除 URL 查詢參數
+    query_: (value?: string | string[]) => URL; // 新增查詢參數
+    query__: (value?: string | string[]) => URL; // 刪除查詢參數
+    $query: (key?: string) => string; // 取得指定查詢參數的值
+
+    _fa: Element; // Font Awesome 圖標元素
+    $: Element; // 轉換為 DOM 元素
+    $all: Element[]; // 轉換為 DOM 元素陣列
+
+    _: (val0?: any, val1?: any) => Element; // 生成 DOM 元素
 };
 
 interface Number {
-    $str: string;
-    $num: number;
-    $date: Date;
-    $y: number;
-    $yy: string;
-    $yyyy: number;
-    $M: number;
-    $MM: string;
-    $D: number;
-    $DD: string;
-    $d: number;
-    $dd: string;
-    $H: number;
-    $HH: string;
-    $h: number;
-    $hh: string;
-    $a: string;
-    $A: string;
-    $m: number;
-    $mm: string;
-    $s: number;
-    $ss: string;
-    $gone: string;
+    $str: string; // 轉換為字串
+    $num: number; // 原始數字
+    $date: Date; // 轉換為日期物件
+    $y: number; // 完整年份
+    $yy: string; // 年份的最後兩位數 (字串)
+    $yyyy: number; // 完整年份
+    $M: number; // 月份 (1-12)
+    $MM: string; // 月份 (01-12)
+    $D: number; // 日期 (1-31)
+    $DD: string; // 日期 (01-31)
+    $d: number; // 星期幾 (0-6)
+    $dd: string; // 星期幾 (字串)
+    $H: number; // 24小時制的時 (0-23)
+    $HH: string; // 24小時制的時 (00-23)
+    $h: number; // 12小時制的時 (1-12)
+    $hh: string; // 12小時制的時 (01-12)
+    $a: string; // 上下午 (am/pm)
+    $A: string; // 上下午 (AM/PM)
+    $m: number; // 分鐘 (0-59)
+    $mm: string; // 分鐘 (00-59)
+    $s: number; // 秒數 (0-59)
+    $ss: string; // 秒數 (00-59)
+    $gone: string; // 計算經過的時間，回傳相對時間的字串
 
-    $format: (format: string) => string;
-};
+    $format: (format: string) => string; // 依指定格式轉換為字串
+}
 
 interface Array<T> {
-    // 返回陣列的長度。
-    $len: number;
-    // 將陣列轉換為 Map 並返回，其中 Map 的鍵是陣列的元素，值是元素的索引。
-    $map: Map<any, number>;
-    // 返回隨機排序的陣列，將陣列中的元素隨機排列。
-    $random: any[];
-    // 檢查陣列是否為空，返回布林值。
-    $$mt: boolean;
+    $len: number; // 陣列長度
+    $map: Map<any, number>; // 將陣列轉換為 Map，鍵是元素，值是索引
+    $random: any[]; // 隨機排序陣列
+    $$mt: boolean; // 檢查陣列是否為空
 
-    /**
-     * 將值添加到陣列中，可以是單個值或陣列。
-     * 例如：[123]._("123"); 返回 [123, "123"];
-     * 例如：[123]._([456, 789]); 返回 [123, 456, 789];
-     */
-    _: (value?: any | any[]) => any[];
-    /**
-     * 根據提供的函數對陣列中的每個元素進行轉換，並返回轉換後的新陣列。
-     * 例如：["test1", "test2", "test3"]._$((e, i) => { name: e, index: i });
-     * 返回 [
-     * 		{ name: "test1", index: 0 },
-     * 		{ name: "test2", index: 1 },
-     * 		{ name: "test3", index: 2 }
-     * ];
-     */
-    _$: (value?: (e: any, i: number) => any) => any[];
-    /**
-     * 按索引返回陣列中的元素。如果索引為負數，則從末尾開始計算。
-     * 例如：["test1", "test2", "test3"].$(0); 返回 "test1";
-     * 例如：["test1", "test2", "test3"].$(-1); 返回 "test3";
-     */
-    $: (index?: number) => any;
-    // 返回指定值在陣列中的第一個出現的索引，如果沒有找到則返回 -1。
-    $i: (value?: any) => number;
-    // 將陣列中的元素連接成一個字串，可指定連接字元。
-    $str: (char?: string) => string;
-    // 將陣列轉換為 URL 並根據提供的配置發送 HTTP 請求。 
-    $req: (body: { [key: string]: string }) => void;
-    // 根據索引從陣列中刪除元素，並返回修改後的陣列。
-    $_: (index?: number) => any[];
-    // 檢查陣列中是否包含指定的值，返回布林值。
-    $$: (value: any) => boolean;
+    _: (value?: any | any[]) => any[]; // 將值添加到陣列
+    _$: (value?: (e: any, i: number) => any) => any[]; // 根據函數轉換陣列元素並返回新陣列
+    $: (index?: number) => any; // 按索引返回陣列元素
+    $i: (value?: any) => number; // 返回指定值的索引
+    $str: (char?: string) => string; // 將陣列連接成字串
+    $req: (body: { [key: string]: string }) => void; // 發送 HTTP 請求
+    $_: (index?: number) => any[]; // 刪除指定索引的元素並返回新陣列
+    $$: (value: any) => boolean; // 檢查陣列是否包含指定值
 };
 
 interface Object {
-    // 返回一個Map物件，其中包含了對象的所有鍵和值。
-    $map: Map<string, any>;
-    //  返回一個包含對象所有鍵的陣列。
-    $keys: string[];
-    //  返回一個包含對象所有值的陣列。
-    $vals: any[];
-    // 根據給定的鍵返回對象中的值，如果未指定鍵，則返回整個物件。
-    $: (key?: string) => any;
-    // 
-    $$: (key?: string) => boolean;
-    // 遍歷對象的每個鍵/值對，並對它們執行指定的操作。
-    $forEach: (value: (key: string, val: any) => void) => void;
+    $map: Map<string, any>; // 返回包含對象所有鍵和值的 Map 物件
+    $keys: string[]; // 返回包含對象所有鍵的陣列
+    $vals: any[]; // 返回包含對象所有值的陣列
+    $: (key?: string) => any; // 根據鍵返回對象中的值，未指定鍵則返回整個物件
+    $$: (key?: string) => boolean; // 檢查對象是否包含指定鍵
+    $forEach: (value: (key: string, val: any) => void) => void; // 遍歷對象的每個鍵/值對並執行指定操作
 };
 
 interface Map<K, V> {
-    // 返回 Map 物件的 JavaScript 物件表示。
-    $obj: { [key: string]: any };
-    // 返回 Map 物件的數量。
-    $len: number;
-    // 檢查 Map 物件是否為空，返回布林值。
-    $mt: boolean;
+    $obj: { [key: string]: any }; // 返回 Map 物件的 JavaScript 物件表示
+    $len: number; // 返回 Map 物件的數量
+    $mt: boolean; // 檢查 Map 物件是否為空，返回布林值
 
-    // 用於將新的鍵值對添加到 Map 中。
-    _: (key?: any, value?: any) => Map<any, any>;
-    // 用於根據鍵檢索 Map 中的值。
-    $: (key?: any) => any;
+    _: (key?: any, value?: any) => Map<any, any>; // 用於將新的鍵值對添加到 Map 中
+    $: (key?: any) => any; // 用於根據鍵檢索 Map 中的值
 };
 
 interface Date {
-    $y: number;
-    $yy: string;
-    $yyyy: number;
-    $M: number;
-    $MM: string;
-    $D: number;
-    $DD: string;
-    $d: number;
-    $dd: string;
-    $H: number;
-    $HH: string;
-    $h: number;
-    $hh: string;
-    $a: string;
-    $A: string;
-    $m: number;
-    $mm: string;
-    $s: number;
-    $ss: string;
-    $timestamp: number;
-    $gone: string;
+    $y: number; // 完整年份
+    $yy: string; // 年份的最後兩位數 (字串)
+    $yyyy: number; // 完整年份
+    $M: number; // 月份 (1-12)
+    $MM: string; // 月份 (01-12)
+    $D: number; // 日期 (1-31)
+    $DD: string; // 日期 (01-31)
+    $d: number; // 星期幾 (0-6)
+    $dd: string; // 星期幾 (字串)
+    $H: number; // 24小時制的時 (0-23)
+    $HH: string; // 24小時制的時 (00-23)
+    $h: number; // 12小時制的時 (1-12)
+    $hh: string; // 12小時制的時 (01-12)
+    $a: string; // 上下午 (am/pm)
+    $A: string; // 上下午 (AM/PM)
+    $m: number; // 分鐘 (0-59)
+    $mm: string; // 分鐘 (00-59)
+    $s: number; // 秒數 (0-59)
+    $ss: string; // 秒數 (00-59)
+    $timestamp: number; // Unix 時間戳記
+    $gone: string; // 計算經過的時間，回傳相對時間的字串
 
-    $format: (format: string) => String;
-    $date: (body?: { [key: string]: any }) => Date;
+    $format: (format: string) => string; // 依指定格式轉換為字串
+    $date: (body?: { [key: string]: any }) => Date; // 根據提供的配置生成新的日期物件
 };
 
 interface Image {
-    // 產生 JPEG 圖片的 base64 編碼
-    $jpg: (size: number) => string;
-    // 產生 PNG 圖片的 base64 編碼
-    $png: (size: number) => string;
-    // 產生圖片的 base64 編碼（可以指定 MIME 類型，默認為 image/jpeg）
-    $base64: (mime?: string) => string;
-    // 產生圖片的 Blob 物件（可以指定 MIME 類型，默認為 image/jpeg）
-    $blob: (mime?: string) => string;
-    // 下載 JPEG 格式的圖片
-    _downloadJPG: (filename?: string) => void;
-    // 下載 PNG 格式的圖片
-    _downloadPNG: (filename?: string) => void;
+    $jpg: (size: number) => string; // 產生 JPEG 圖片的 base64 編碼
+    $png: (size: number) => string; // 產生 PNG 圖片的 base64 編碼
+    $base64: (mime?: string) => string; // 產生圖片的 base64 編碼（默認為 image/jpeg）
+    $blob: (mime?: string) => Blob; // 產生圖片的 Blob 物件（默認為 image/jpeg）
+    _downloadJPG: (filename?: string) => void; // 下載 JPEG 格式的圖片
+    _downloadPNG: (filename?: string) => void; // 下載 PNG 格式的圖片
 };
 
 interface URL {
-    $queryAll: { [key: string]: string };
+    $queryAll: { [key: string]: string }; // 解析 URL 中的所有查詢參數
+
     /**
-     * 將字符串轉換為URL並根據提供的配置發送HTTP請求。 
-     * ex. 
+     * 將字符串轉換為 URL 並根據提供的配置發送 HTTP 請求。
+     * ex.
      * "URL".$req({
-     * 		method: "POST",
-     * 		json: { test: "test" },
-     * 		header: {
-     * 			"Content-Type": "application/json;charset=UTF-8"
-     * 		}
+     *     method: "POST",
+     *     json: { test: "test" },
+     *     header: {
+     *         "Content-Type": "application/json;charset=UTF-8"
+     *     }
      * }).then(res => {
-     * 		console.log("Success:", res);
+     *     console.log("Success:", res);
      * }).catch(err => {
-     * 		console.error("Error:", err);
+     *     console.error("Error:", err);
      * });
      * 
      * "URL".$req({
-     * 		method: "POST",
-     * 		json: { test: "test" },
-     * 		files: [FILES],
-     * 		tag: "files[]"
+     *     method: "POST",
+     *     json: { test: "test" },
+     *     files: [FILES],
+     *     tag: "files[]"
      * }).then(res => {
-     * 		console.log("Success:", res);
+     *     console.log("Success:", res);
      * }).catch(err => {
-     * 		console.error("Error:", err);
+     *     console.error("Error:", err);
      * });
      */
-    $req: (body: { [key: string]: string }) => void;
-    _history: (title?: string) => URL;
-    __history: (title?: string) => URL;
-    _query: (value?: { [key: string]: string }) => URL;
-    __query: (value?: { [key: string]: string }) => URL;
-    query_: (value?: string | string[]) => URL;
-    query__: (value?: string | string[]) => URL;
-    $query: (key?: string) => string | null;
+    $req: (body: { [key: string]: string }) => void; // 發送 HTTP 請求
+
+    _history: (title?: string) => URL; // 推送歷史紀錄並更新 URL
+    __history: (title?: string) => URL; // 替換歷史紀錄並更新 URL
+    _query: (value?: { [key: string]: string }) => URL; // 新增或更新 URL 查詢參數
+    __query: (value?: { [key: string]: string }) => URL; // 移除 URL 查詢參數
+    query_: (value?: string | string[]) => URL; // 新增查詢參數
+    query__: (value?: string | string[]) => URL; // 刪除查詢參數
+    $query: (key?: string) => string | null; // 取得指定查詢參數的值
 };
 
+
 interface Element {
-    // 返回元素的 innerHTML。
-    $: string;
-    // 返回元素的 scrollLeft。
-    $x: number;
-    // 返回元素的 scrollTop。
-    $y: number;
-    // 返回元素的 clientWidth。
-    $w: number;
-    // 返回元素的 clientHeight。
-    $h: number;
-    // 返回元素的 scrollWidth。
-    $sw: number;
-    // 返回元素的 scrollHeight。
-    $sh: number;
-    // 返回元素的 naturalWidth。
-    $nw: number;
-    // 返回元素的 naturalHeight。
-    $nh: number;
-    // 返回子元素的數量。
-    $len: number;
-    // 返回在父元素中的索引。
-    $i: number;
-    // 返回元素的 classList 的陣列。
-    $classAll: string[];
-    // 返回元素的 attributes 的陣列。
-    $attrAll: { [key: string]: string };
-    // 返回子元素的陣列。
-    $childAll: Element[];
-    // 返回子節點的陣列。
-    $nodeAll: ChildNode[];
-    // 返回純文字的內容。
-    $text: string;
-    $html: string;
+    $: string; // 返回元素的 innerHTML
+    $x: number; // 返回元素的 scrollLeft
+    $y: number; // 返回元素的 scrollTop
+    $w: number; // 返回元素的 clientWidth
+    $h: number; // 返回元素的 clientHeight
+    $sw: number; // 返回元素的 scrollWidth
+    $sh: number; // 返回元素的 scrollHeight
+    $nw: number; // 返回元素的 naturalWidth
+    $nh: number; // 返回元素的 naturalHeight
+    $len: number; // 返回子元素的數量
+    $i: number; // 返回在父元素中的索引
+    $classAll: string[]; // 返回元素的 classList 的陣列
+    $attrAll: { [key: string]: string }; // 返回元素的 attributes 的陣列
+    $childAll: Element[]; // 返回子元素的陣列
+    $nodeAll: ChildNode[]; // 返回子節點的陣列
+    $text: string; // 返回純文字的內容
+    $html: string; // 返回元素的 innerHTML
 
-    // 添加內容至元素的 innerHTML。
-    _: (innerHTML?: string) => Element;
-    // 覆蓋元素的 innerHTML 內容。
-    __: (innerHTML?: string) => Element;
-    // 複製元素。
-    _$: (deep?: boolean) => Element;
-    // 更新元素的 scrollLeft。
-    _x: (value?: number) => Element;
-    // 更新元素的 scrollTop。
-    _y: (value?: number) => Element;
-    // 更新元素的 style.width
-    _w: (value?: number | string) => Element;
-    // 更新元素的 style.height。
-    _h: (value?: number | string) => Element;
-    // 更新元素的內邊距: 上。
-    _pt: (value?: number | string) => Element;
-    // 更新元素的內邊距: 左。
-    _pl: (value?: number | string) => Element;
-    // 更新元素的內邊距: 下。
-    _pb: (value?: number | string) => Element;
-    // 更新元素的內邊距: 右。
-    _pr: (value?: number | string) => Element;
-    // 更新元素的外邊距: 上。
-    _mt: (value?: number | string) => Element;
-    // 更新元素的外邊距: 左。
-    _ml: (value?: number | string) => Element;
-    // 更新元素的外邊距: 下。
-    _mb: (value?: number | string) => Element;
-    // 更新元素的外邊距: 右。
-    _mr: (value?: number | string) => Element;
-
-    // 移除 class
-    class_: (value?: string | string[]) => Element;
-    // 清除 class
-    class__: () => Element;
+    _: (innerHTML?: string) => Element; // 添加內容至元素的 innerHTML
+    __: (innerHTML?: string) => Element; // 覆蓋元素的 innerHTML 內容
+    _$: (deep?: boolean) => Element; // 複製元素
+    _x: (value?: number) => Element; // 更新元素的 scrollLeft
+    _y: (value?: number) => Element; // 更新元素的 scrollTop
+    _w: (value?: number | string) => Element; // 更新元素的 style.width
+    _h: (value?: number | string) => Element; // 更新元素的 style.height
     /**
-     * 添加 class
-     * 例如：dom._class("test"); 設置 dom.classList.add("test");
-     * 例如：dom._class("test1.test2"); 設置 dom.classList.add("test1"), dom.classList.add("test2");
-     * 例如：dom._class("test1 test2"); 設置 dom.classList.add("test1"), dom.classList.add("test2");
-     * 例如：dom._class(["test1", "test2"]); 設置 dom.classList.add("test1"), dom.classList.add("test2");
+     * 批量設置內邊距
+     * 例如：
+     * ```
+     * element._p(10); // 設置四個方向的內邊距為 10
+     * element._p(10, 20); // 設置上下內邊距為 10，左右內邊距為 20
+     * element._p(10, 20, 30); // 設置上內邊距為 10，左右內邊距為 20，下內邊距為 30
+     * element._p(10, 20, 30, 40); // 設置上內邊距為 10，右內邊距為 20，下內邊距為 30，左內邊距為 40
+     * ```
      */
-    _class: (value?: string | string[]) => Element;
-    // 覆蓋 class
-    __class: (value?: string | string[]) => Element;
-    // 判斷 class 是否存在
-    $$class: (value?: string) => boolean;
-    // 假如 true 則移除 class
-    $$class_: (bool?: boolean, value?: string | string[]) => Element;
-    // 假如 true 則添加 class
-    $$_class: (bool?: boolean, value?: string | string[]) => Element;
-
-    // 移除 style
-    style_: (key?: string | string[]) => Element;
+    _p: (top?: number | string, right?: number | string, bottom?: number | string, left?: number | string) => Element;
+    _pt: (value?: number | string) => Element; // 更新元素的內邊距: 上
+    _pl: (value?: number | string) => Element; // 更新元素的內邊距: 左
+    _pb: (value?: number | string) => Element; // 更新元素的內邊距: 下
+    _pr: (value?: number | string) => Element; // 更新元素的內邊距: 右
     /**
-     * 添加 style
-     * 例如：dom._style({ backgroundColor: "red" }); 設置 dom.style.backgroundColor = "red";
-     * 例如：dom._style({ backgroundColor: "red", color: "#fff" }); 設置 dom.style.backgroundColor = "red", dom.style.color = "#fff";
-     */
-    _style: (value?: { [key: string]: string }) => Element;
-    // 取得 style
-    $style: (key?: string) => string | undefined;
+      * 批量設置邊距
+      * 例如：
+      * ```
+      * element._m(10); // 設置四個方向的邊距為 10
+      * element._m(10, 20); // 設置上下邊距為 10，左右邊距為 20
+      * element._m(10, 20, 30); // 設置上邊距為 10，左右邊距為 20，下邊距為 30
+      * element._m(10, 20, 30, 40); // 設置上邊距為 10，右邊距為 20，下邊距為 30，左邊距為 40
+      * ```
+      */
+    _m: (top?: number | string, right?: number | string, bottom?: number | string, left?: number | string) => Element;
+    _mt: (value?: number | string) => Element; // 更新元素的外邊距: 上
+    _ml: (value?: number | string) => Element; // 更新元素的外邊距: 左
+    _mb: (value?: number | string) => Element; // 更新元素的外邊距: 下
+    _mr: (value?: number | string) => Element; // 更新元素的外邊距: 右
 
-    data_: (key?: string | string[]) => Element;
+    class_: (value?: string | string[]) => Element; // 移除 class
+    class__: () => Element; // 清除 class
+    _class: (value?: string | string[]) => Element; // 添加 class
+    __class: (value?: string | string[]) => Element; // 覆蓋 class
+    $$class: (value?: string) => boolean; // 判斷 class 是否存在
+    $$class_: (bool?: boolean, value?: string | string[]) => Element; // 假如 true 則移除 class
+    $$_class: (bool?: boolean, value?: string | string[]) => Element; // 假如 true 則添加 class
 
-    _data: (value?: { [key: string]: string | number }) => Element;
+    style_: (key?: string | string[]) => Element; // 移除 style
+    _style: (value?: { [key: string]: string }) => Element; // 添加 style
+    $style: (key?: string) => string | undefined; // 取得 style
 
-    // 移除 attribute
-    attr_: (key?: string | string[]) => Element;
-    /**
-     * 添加 attribute
-     * 例如：dom._attr({ test: 1 }); 設置 dom.setAttribute("test", "1");
-     * 例如：dom._attr({ test1: 1, test2: 2 }); 設置 dom.setAttribute("test1", "1"), dom.setAttribute("test2", "2");
-     */
-    _attr: (value?: { [key: string]: string | number }) => Element;
-    // 取得 attribute
-    $attr: (key?: string) => string | null;
-    // 判斷 attribute 是否存在
-    $$attr: (key?: string) => boolean;
+    data_: (key?: string | string[]) => Element; // 移除 data
+    _data: (value?: { [key: string]: string | number }) => Element; // 添加 data
 
-    // 添加元素
-    _child: (value?: ChildNode | Element | string | number | (ChildNode | Element | string | number)[], before?: ChildNode | Element | number) => Element;
-    // 覆蓋內容
-    __child: (value?: ChildNode | Element | string | number | (ChildNode | Element | string | number)[]) => Element;
-    /**
-     * 取得子元素
-     * 例如：dom.$child(0); // 取得第一個子元素;
-     * 例如：dom.$child([0, 1]); // 取得第一個子元素中的第二個子元素;
-     * 例如：dom.$child("button.add"); // 取得子元素中符合 button.add 的元素;
-     * 例如：dom.$child([0, 1, "button.add"]); // 取得第一個子元素中的第二個子元素中符合 button.add 的元素;
-     */
-    $child: (value?: string | number | (string | number)[]) => Element | undefined;
-    /**
-     * 取得父元素
-     * 例如：dom.$parent(); // 取得 dom.parentElement;
-     * 例如：dom.$parent(1); // 取得 dom.parentElement.parentElement;
-     */
-    $parent: (layer?: number) => Element | undefined;
-    /**
-     * 取得前元素
-     * 例如：dom.$pre(0); // 取得 dom.previousElementSibling;
-     * 例如：dom.$pre(1); // 取得 dom.previousElementSibling.previousElementSibling;
-     */
-    $pre: (index?: number) => Element | undefined;
-    /**
-     * 取得後元素
-     * 例如：dom.$next(0); // 取得 dom.nextElementSibling;
-     * 例如：dom.$next(1); // 取得 dom.nextElementSibling.nextElementSibling;
-     */
-    $next: (index?: number) => Element | undefined;
+    attr_: (key?: string | string[]) => Element; // 移除 attribute
+    _attr: (value?: { [key: string]: string | number }) => Element; // 添加 attribute
+    $attr: (key?: string) => string | null; // 取得 attribute
+    $$attr: (key?: string) => boolean; // 判斷 attribute 是否存在
 
-    // 移除元素
-    $rm: () => void;
+    _child: (value?: ChildNode | Element | string | number | (ChildNode | Element | string | number)[], before?: ChildNode | Element | number) => Element; // 添加元素
+    __child: (value?: ChildNode | Element | string | number | (ChildNode | Element | string | number)[]) => Element; // 覆蓋內容
+    $child: (value?: string | number | (string | number)[]) => Element | undefined; // 取得子元素
+    $parent: (layer?: number) => Element | undefined; // 取得父元素
+    $pre: (index?: number) => Element | undefined; // 取得前元素
+    $next: (index?: number) => Element | undefined; // 取得後元素
 
-    // 選擇器 querySelector
-    $sel: (filter?: string) => Element | undefined;
-    // 選擇器 querySelectorAll
-    $selAll: (filter?: string) => Element[];
+    $rm: () => void; // 移除元素
 
-    /**
-     * 設定 video 屬性
-     * preload: "" | "none" | "metadata" | "auto";
-     * loop: true | false;
-     * muted: true | false;
-     * controls: true | false;
-     * playsinline: true | false;
-     * download: true | false;
-     * remote: true | false;
-     */
-    _video: (value: { [key: string]: any }) => Element;
+    $sel: (filter?: string) => Element | undefined; // 選擇器 querySelector
+    $selAll: (filter?: string) => Element[]; // 選擇器 querySelectorAll
 
-    // 擴展 style
-    _display: (value: string) => Element;
+    _video: (value: { [key: string]: any }) => Element; // 設定 video 屬性
+
+    _display: (value: string) => Element; // 擴展 style 顯示屬性
 };
 
 interface DocumentFragment {
-    // 返回子元素的數量。
-    $len: number;
-    // 返回子元素的陣列。
-    $childAll: Element[];
-    // 返回子節點的陣列。
-    $nodeAll: ChildNode[];
-    // 返回純文字的內容。
-    $text: string;
-    // 返回innerHTML的內容。
-    $html: string;
-    $str: string;
+    $len: number; // 返回子元素的數量
+    $childAll: Element[]; // 返回子元素的陣列
+    $nodeAll: ChildNode[]; // 返回子節點的陣列
+    $text: string; // 返回純文字的內容
+    $html: string; // 返回 innerHTML 的內容
+    $str: string; // 返回 DocumentFragment 的字串表示
 
-    // 複製元素。
-    _$: (deep?: boolean) => Element;
-    // 添加元素
-    _child: (value?: ChildNode | Element | string | number | (ChildNode | Element | string | number)[]) => DocumentFragment;
-    /**
-     * 取得子元素
-     * 例如：dom.$child(0); // 取得第一個子元素;
-     * 例如：dom.$child([0, 1]); // 取得第一個子元素中的第二個子元素;
-     * 例如：dom.$child("button.add"); // 取得子元素中符合 button.add 的元素;
-     * 例如：dom.$child([0, 1, "button.add"]); // 取得第一個子元素中的第二個子元素中符合 button.add 的元素;
-     */
-    $child: (value?: string | number | (string | number)[]) => Element | undefined;
-};
+    _$: (deep?: boolean) => Element; // 複製元素
+    _child: (value?: ChildNode | Element | string | number | (ChildNode | Element | string | number)[]) => DocumentFragment; // 添加元素
+    $child: (value?: string | number | (string | number)[]) => Element | undefined; // 取得子元素
+}

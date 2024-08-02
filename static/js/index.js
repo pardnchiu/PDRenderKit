@@ -367,11 +367,10 @@ Improving code maintainability and readability while reducing development comple
         ])
     );
 
-    // 添加 SVG Listener, 轉換 span.svg 至 svg 標籤
-    _SVGListener();
-
-    // 添加 Lazy Listener, Lazy Loading 圖片
-    _LazyListener();
+    _Listener({
+        svg: true, // 添加 SVGListener, 轉換 span.svg 至 svg 標籤
+        lazyload: true // 添加 Lazy Listener, Lazy Loading 圖片
+    });
     \`\`\`
 - ### 獲取 / Get Element
     - #### Before
@@ -421,6 +420,10 @@ document.addEventListener('DOMContentLoaded', _ => {
 
     const app = new PD({
         id: "app",
+        // listener: {
+        //     svg: false,
+        //     lazyload: false,
+        // },
         next: _ => {
             const viewer = new MDViewer({
                 delay: 50,
