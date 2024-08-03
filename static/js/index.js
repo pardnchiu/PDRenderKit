@@ -33,8 +33,8 @@ Improving code maintainability and readability while reducing development comple
     Reduces manual DOM manipulation, allowing you to focus more on the core logic of your application.
 
 - ### 輕量級 / Lightweight:
-    全功能的實現僅用了\`34KB\`，確保你能在網站中輕鬆高效地使用。<br>
-    Full functionality is achieved with only \`34KB\`, ensuring efficient and effortless use on your website.
+    全功能的實現僅用了\`35KB\`，確保你能在網站中輕鬆高效地使用。<br>
+    Full functionality is achieved with only \`35KB\`, ensuring efficient and effortless use on your website.
 
 ## 範例 / Example
 
@@ -353,13 +353,13 @@ Improving code maintainability and readability while reducing development comple
                     backgroundColor: "steelblue",
                     color: "#fff"
                 }
-            })._click(function(){
-                alert("test")
             }, [
                 // or "<span>test</span> button"
                 "span"._("test"),
                 " button"
-            ]),
+            ])._click(function(){
+                alert("test")
+            }),
             "span.svg:._({ path: "https://xxxxxx" }),
             // 無 Lazy Loading => "img"._("https://xxxxxx"),
             "img"._({ lazyload: "https://xxxxxx" }),

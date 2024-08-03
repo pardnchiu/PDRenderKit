@@ -1,6 +1,6 @@
 {
     "name": "pdrenderkit",
-    "version": "1.0.2",
+    "version": "1.2.0",
     "description": "PDRenderKit contains a lightweight front-end framework designed to separate the front-end user interface and data logic.",
     "main": "dist/PDRenderKit.js",
     "scripts": {
@@ -29,6 +29,5 @@
         "url": "https://github.com/pardnchiu/PDRenderKit/issues",
         "email": "git@pardn.io"
     },
-    "homepage": "https://github.com/pardnchiu/PDRenderKit#readme",
-    "devDependencies": {}
+    "homepage": "https://github.com/pardnchiu/PDRenderKit#readme"
 }
