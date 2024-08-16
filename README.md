@@ -28,7 +28,7 @@ Improving code maintainability and readability while reducing development comple
 
 ## Creator
 
-<img src="https://pardn.io/image/head-s.jpg" style="float: left; margin-right: 0.5rem; width: 128px; height: 128px;">
+<img src="https://pardn.io/image/head-s.jpg" align="left" width="128" height="128" style="margin-right: 0.5rem;">
 
 ### 邱敬幃 Pardn Chiu
 
@@ -64,16 +64,92 @@ This source code project is licensed under the [GPL-3.0](https://github.com/pard
     | @[event] | Add event listeners to execute specified actions when events are triggered.<br>For example: @click/@input/@mousedown... |
     | :@[event] | Set event handlers for individual elements within a loop, allowing different event handling for each element. |
 
-    - #### Function `LENGTH()`:
-        If `data.array = [1, 2, 3, 4];`
-        Then `<p>Total: {{ LENGTH(array) }}</p>`
-        Becomes `<p>Total: 4</p>`
-
-    - #### Function `CALC()`:
-        If `data.num = 1;`
-        Then `<p>calc: {{ CALC(num * 10) }}</p>`
-        Becomes `<p>calc: 10</p>`
-      
+    - #### Function 
+      - `LENGTH()`:
+        - index.html
+          ```HTML
+          <body id="app">
+              <p>Total: {{ LENGTH(array) }}</p>
+          </body>
+          <script>
+              const app = new PD({
+                  id: "app",
+                  data: {
+                      array: [1, 2, 3, 4]
+                  }
+              });
+          </script>
+          ```
+        - result
+          ```HTML
+          <body id="app">
+              <p>Total: 4</p>
+          </body>
+          ```
+      - `CALC()`:
+        - index.html
+          ```HTML
+          <body id="app">
+              <p>calc: {{ CALC(num * 10) }}</p>
+          </body>
+          <script>
+              const app = new PD({
+                  id: "app",
+                  data: {
+                      num: 1
+                  }
+              });
+          </script>
+          ```
+        - result
+          ```HTML
+          <body id="app">
+              <p>calc: 10</p>
+          </body>
+          ```
+      - `UPPER()` / `LOWER()`
+        - index.html
+          ```HTML
+          <body id="app">
+              <p>{{ UPPER(test1) }} {{ LOWER(test2) }}</p>
+          </body>
+          <script>
+              const app = new PD({
+                  id: "app",
+                  data: {
+                      test1: "upper",
+                      test2: "LOWER"
+                  }
+              });
+          </script>
+          ```
+        - result
+          ```HTML
+          <body id="app">
+              <p>UPPER lower</p>
+          </body>
+          ```
+      - `DATE(num, format)`:
+        - index.html
+          ```HTML
+          <body id="app">
+              <p>{{ DATE(now, YYYY-MM-DD hh:mm:ss) }}</p>
+          </body>
+          <script>
+              const app = new PD({
+                  id: "app",
+                  data: {
+                      now: Math.floor(Date.now() / 1000)
+                  }
+              });
+          </script>
+          ```
+        - result
+          ```HTML
+          <body id="app">
+              <p>2024-08-17 03:40:47</p>
+          </body>
+          ```
     - #### `:path` / `:html`
         *Make sure to disable local file restrictions in your browser or use a live server when you are testing ':path'.*
         - ##### test.html
