@@ -2,14 +2,14 @@ import { viewer as MDViewer } from "https://cdn.jsdelivr.net/gh/pardnchiu/PDMark
 
 document.addEventListener("DOMContentLoaded", async _ => {
     let pre = "";
-    
-    await fetch('/README.md')
+
+    await fetch('./README.md')
         .then(response => response.text())
         .then(data => {
             pre = data;
         })
         .catch(error => {
-            console.error('Error fetching the file:', error);
+            console.error(error);
         });
 
     const app = new PD({
