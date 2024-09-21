@@ -1,3 +1,11 @@
+interface $JSON_array extends Array<$JSON_type> { }
+
+type $JSON_type = string | number | boolean | $JSON | $JSON_array | null;
+
+interface $JSON {
+    [key: string]: $JSON_type;
+}
+
 interface Window {
     // 全域變數，用於存取 PD 物件。
     // Global variable for accessing the PD object.
@@ -68,581 +76,404 @@ interface Window {
 };
 
 interface String {
-    // 轉換為 JSON 後的值，若無法轉換則為 undefined
-    // Converts the string to JSON, returning undefined if conversion fails
-    // Example: console.log('{"key":"value"}'.$json);
-    $json: JSON | undefined;
-
-    // 轉換為 HTML 實體編碼後的值
-    // Converts the string to HTML entity encoding
-    // Example: console.log('<div>'.$html);
+    // 轉換為 JSON，失敗時返回 undefined
+    $json: $JSON | undefined;
+    // 轉換為 HTML 實體編碼
     $html: string;
-
-    // 轉換為圖片並回傳 Promise
-    // Converts the string to an image and returns a Promise
-    // Example: 'image_url'.$img.then(img => document.body.appendChild(img));
-    $img: Promise<HTMLImageElement | undefined>;
-
-    // 是否為 JSON 格式
-    // Checks if the string is in JSON format
-    // Example: console.log('{"key":"value"}'.$$json);
+    // 檢查是否為 JSON 格式
     $$json: boolean;
-
-    // 是否為空字串
-    // Checks if the string is empty
-    // Example: console.log(''.$$empty);
-    $$empty: boolean;                               // 是否為空字串
-
-    convertText: (key?: string, value?: string) => string;
-
-    // 替換字串中符合條件的部分
-    // Replaces parts of the string that match the condition
-    // Example: console.log('Hello, World'.__('World', 'Everyone'));
+    // 檢查是否為空字串
+    $$empty: boolean;
+    // 複製到剪貼簿
+    copy: () => any;
+    // 替換字串中的指定部分
     __: (target?: RegExp | string, replace?: string) => string;
-
     // 生成正則表達式
-    // Generates a regular expression from the string
-    // Example: console.log('pattern'.$regexp('g'));
     $regexp: (flags?: string) => RegExp;
-
-    // 編碼 URI (true: 完整編碼, false: 部分編碼)
-    // Encodes the string as a URI (true: full encoding, false: partial encoding)
-    // Example: console.log('http://example.com/?q=hello world'.$en(true));
+    // URI 編碼
     $en: (component?: Boolean) => String;
-
-    // 解碼 URI (true: 完整解碼, false: 部分解碼)
-    // Decodes the string as a URI (true: full decoding, false: partial decoding)
-    // Example: console.log('http%3A%2F%2Fexample.com'.$de(true));
+    // URI 解碼
     $de: (component?: Boolean) => String;
-
-    // 將字串複製到剪貼簿
-    // Copies the string to the clipboard
-    // Example: 'Hello, World'.$copy();
-    $copy: () => any;
-
-    // 是否等於指定的字串或符合正則表達式
-    // Checks if the string is equal to the specified string or matches the regex
-    // Example: console.log('Hello'.$$('Hello'));
+    // 檢查字串是否等於指定值或匹配正則
     $$: (equalTo?: RegExp | String) => boolean;
 
-    // 確認字串為有效 URL，並回傳 Promise
-    // Verifies if the string is a valid URL and returns a Promise
-    // Example: 'http://example.com'.$$200().then(response => console.log(response));
-    $$200: (isImage?: Boolean) => Promise<any>;
-
-    // URL Extension
-    // URL 操作
-    // URL Operations
-
-    // 將字串轉換為 URL 物件
-    // Converts the string to a URL object
-    // Example: console.log('http://example.com'.$url);
+    // URL 相關操作
+    // 轉換為 URL 物件
     $url: URL;
-
-    // 解析 URL 中的查詢參數
-    // Parses query parameters from the URL
-    // Example: console.log('http://example.com?q=test'.$queryAll);
+    // 轉換為圖片元素的 Promise
+    $img: Promise<HTMLImageElement | undefined>;
+    // 解析 URL 查詢參數
     $queryAll: { [key: string]: string };
-
+    // 驗證 URL 有效性
+    $$200: (isImage?: Boolean) => Promise<any>;
     // 發送 HTTP 請求
-    // Sends an HTTP request
-    // Example: 'http://example.com'.$req({ method: 'GET' });
-    $req: (body: { [key: string]: string }) => void;
-
-    // 推送歷史紀錄並更新 URL
-    // Pushes a new history record and updates the URL
-    // Example: 'http://example.com'.$history('New Title');
+    $req: (body: $JSON) => void;
+    // 推送歷史記錄並更新 URL
     _history: (title?: string) => URL;
-
-    // 替換歷史紀錄並更新 URL
-    // Replaces the current history record and updates the URL
-    // Example: 'http://example.com'.$history('New Title');
+    // 替換歷史記錄並更新 URL
     __history: (title?: string) => URL;
-
     // 更新 URL 查詢參數
-    // Updates the URL query parameters
-    // Example: 'http://example.com'.$query({ key: 'value' });
     _query: (value?: { [key: string]: string }) => URL;
-
     // 移除 URL 查詢參數
-    // Removes URL query parameters
-    // Example: 'http://example.com'.$query({ key: 'value' });
     __query: (value?: { [key: string]: string }) => URL;
-
-    // 新增查詢參數
-    // Adds query parameters
-    // Example: 'http://example.com'.$query_('key', 'value');
+    // 刪除指定查詢參數
     query_: (value?: string | string[]) => URL;
-
-    // 刪除查詢參數
-    // Deletes query parameters
-    // Example: 'http://example.com'.$query__('key');
-    query__: (value?: string | string[]) => URL;
-
+    // 清除所有查詢參數
+    query__: () => URL;
     // 取得指定查詢參數的值
-    // Retrieves the value of a specific query parameter
-    // Example: console.log('http://example.com?q=test'.$query('q'));
     $query: (key?: string) => string;
 
-    // Element Extension
-    // Element 操作
-    // Element Operations
-
-    // Font Awesome 圖標元素
-    // Font Awesome icon element
-    // Example: console.log('fa-camera'.$fa);
+    // Element 相關操作
+    // 創建 Font Awesome 圖標元素
     _fa: Element;
-
-    // 轉換為 DOM 元素
-    // Converts the string to a single DOM element using querySelector
-    // Example: console.log('#element'.$);
+    // 選擇單個 DOM 元素
     $: Element;
-
-    // 轉換為 DOM 元素陣列
-    // Converts the string to an array of DOM elements using querySelectorAll
-    // Example: console.log('.elements'.$all);
+    // 選擇多個 DOM 元素
     $all: Element[];
-
     // 生成 DOM 元素
-    // Generates a DOM element
-    // Example: console.log('div#myDiv.class'._('Hello, World'));
     _: (val0?: any, val1?: any) => Element;
 
-    // 預計於 2.*.* 版移除
-    // Marked for removal in version 2.*.*
-
-    // 轉換為數字後的值，若無法轉換則為 undefined
-    // Converts the string to a number, returning undefined if conversion fails
-    // Example: console.log('123'.$num);
+    // 轉換為數字，失敗時返回 undefined
+    // ! 預計於 2.*.* 版移除
     $num: number | undefined;
-
-    // 字串長度
-    // Returns the length of the string
-    // Example: console.log('Hello'.$len);
+    // 獲取字串長度
+    // ! 預計於 2.*.* 版移除
     $len: number;
-
-    // 是否為空字串
-    // Checks if the string is empty
-    // Example: console.log(''.$mt);
+    // 檢查是否為空字串
+    // ! 預計於 2.*.* 版移除
     $$mt: boolean;
-
-    // 將字串切割為陣列
-    // Splits the string into an array
-    // Example: console.log('Hello, World'.$ary(' '));
+    // 將字串分割為陣列
+    // ! 預計於 2.*.* 版移除
     $ary: (target?: string | RegExp) => string[];
-
-    // 符合條件的子字串或陣列
-    // Returns a matching substring or array
-    // Example: console.log('Hello, World'.$fit(/H\w+/));
+    // 匹配正則並返回結果
+    // ! 預計於 2.*.* 版移除
     $fit: (regex: RegExp) => string | string[] | undefined;
+    // 複製到剪貼簿
+    // ! 預計於 2.*.* 版移除
+    $copy: () => any;
 };
 
 interface Number {
-    // sec 轉換為日期物件
-    // Converts seconds to a Date object
-    // Example: console.log((1609459200).$date); // Outputs: Date object representing 2021-01-01T00:00:00Z
+    // Date 擴展
+
+    // 將秒數轉換為 Date 對象
     $date: Date;
 
-    // 計算經過的 sec，回傳相對時間的字串
-    // Calculates elapsed seconds and returns a relative time string
-    // Example: console.log((1609459200).$gone); // Outputs: "2 years ago" (example output)
+    // 計算經過時間，返回相對時間字串
     $gone: string;
 
-    // Date Extension
+    // 年份後兩位數 (字串，如 "24")
+    $y: string;
 
-    // 完整年份
-    // Full year (e.g., 2024)
-    // Example: console.log((1609459200).$y);
-    $y: number;
-
-    // 年份的最後兩位數 (字串)
-    // Last two digits of the year (string)
-    // Example: console.log((1609459200).$yy);
+    // 年份後兩位數 (字串，如 "24")
     $yy: string;
 
-    // 完整年份
-    // Full year (e.g., 2024)
-    // Example: console.log((1609459200).$yyyy);
+    // 完整年份 (如 2024)
     $yyyy: number;
 
     // 月份 (1-12)
-    // Month (1-12)
-    // Example: console.log((1609459200).$M);
     $M: number;
 
-    // 月份 (01-12)
-    // Month with leading zero (01-12)
-    // Example: console.log((1609459200).$MM);
+    // 月份 (01-12，補零)
     $MM: string;
 
     // 日期 (1-31)
-    // Day of the month (1-31)
-    // Example: console.log((1609459200).$D);
     $D: number;
 
-    // 日期 (01-31)
-    // Day of the month with leading zero (01-31)
-    // Example: console.log((1609459200).$DD);
+    // 日期 (01-31，補零)
     $DD: string;
 
-    // 星期幾 (0-6)
-    // Day of the week (0-6, where 0 is Sunday)
-    // Example: console.log((1609459200).$d);
+    // 星期幾 (0-6，0 為週日)
     $d: number;
 
-    // 星期幾 (字串)
-    // Day of the week (string, e.g., "Sun", "Mon")
-    // Example: console.log((1609459200).$dd);
+    // 星期幾 (簡寫，如 "Su", "Mo")
     $dd: string;
 
-    // 24小時制的時 (0-23)
-    // Hours in 24-hour format (0-23)
-    // Example: console.log((1609459200).$H);
+    // 星期幾 (縮寫，如 "Sun", "Mon")
+    $ddd: string;
+
+    // 星期幾 (全稱，如 "Sunday", "Monday")
+    $dddd: string;
+
+    // 小時，24小時制 (0-23)
     $H: number;
 
-    // 24小時制的時 (00-23)
-    // Hours in 24-hour format with leading zero (00-23)
-    // Example: console.log((1609459200).$HH);
+    // 小時，24小時制 (00-23，補零)
     $HH: string;
 
-    // 12小時制的時 (1-12)
-    // Hours in 12-hour format (1-12)
-    // Example: console.log((1609459200).$h);
+    // 小時，12小時制 (1-12)
     $h: number;
 
-    // 12小時制的時 (01-12)
-    // Hours in 12-hour format with leading zero (01-12)
-    // Example: console.log((1609459200).$hh);
+    // 小時，12小時制 (01-12，補零)
     $hh: string;
 
     // 上下午 (am/pm)
-    // AM/PM (lowercase)
-    // Example: console.log((1609459200).$a);
     $a: string;
 
     // 上下午 (AM/PM)
-    // AM/PM (uppercase)
-    // Example: console.log((1609459200).$A);
     $A: string;
 
     // 分鐘 (0-59)
-    // Minutes (0-59)
-    // Example: console.log((1609459200).$m);
     $m: number;
 
-    // 分鐘 (00-59)
-    // Minutes with leading zero (00-59)
-    // Example: console.log((1609459200).$mm);
+    // 分鐘 (00-59，補零)
     $mm: string;
 
-    // 秒數 (0-59)
-    // Seconds (0-59)
-    // Example: console.log((1609459200).$s);
+    // 秒 (0-59)
     $s: number;
 
-    // 秒數 (00-59)
-    // Seconds with leading zero (00-59)
-    // Example: console.log((1609459200).$ss);
+    // 秒 (00-59，補零)
     $ss: string;
 
-    // 依指定格式轉換為字串
-    // Formats the date as a string according to the specified format
-    // Example: console.log((1609459200).$format("YYYY-MM-DD HH:mm:ss"));
+    // 百毫秒 (0-9)
+    $S: string;
+
+    // 十毫秒 (00-99)
+    $SS: string;
+
+    // 毫秒 (000-999)
+    $SSS: string;
+
+    // 按指定格式轉換為字串 (預設 yyyy/MM/DD (ddd) HH:mm:ss)
     $format: (format: string) => string;
 
-    // 預計於 2.*.* 版移除
-    // Marked for removal in version 2.*.*
-
     // 轉換為字串
-    // Converts the number to a string
-    // Example: console.log((1609459200).$str);
+    // ! 預計於 2.*.* 版移除
     $str: string;
 
-    // 原始數字
-    // Returns the original number
-    // Example: console.log((1609459200).$num);
+    // 返回原始數字
+    // ! 預計於 2.*.* 版移除
     $num: number;
 };
 
 interface Array<T> {
-    // 將陣列轉換為 Map，鍵是元素，值是索引
-    // Converts the array into a Map, where the keys are elements and the values are their indices
-    // Example: console.log(array.$map);
+    // 將陣列轉換為 Map（鍵：元素，值：索引）
     $map: Map<any, number>;
 
     // 隨機排序陣列
-    // Shuffles the array randomly
-    // Example: console.log(array.$random);
     $random: any[];
 
-    // 是否為空陣列
-    // Checks if the array is empty
-    // Example: console.log(array.$$empty);
+    // 檢查陣列是否為空
     $$empty: boolean;
 
-    // 將值添加到陣列
-    // Adds a value or values to the array
-    // Example: array._('newValue');
+    // 添加值到陣列
     _: (value?: any | any[]) => any[];
 
-    // 按索引返回陣列元素
-    // Returns an element by its index
-    // Example: console.log(array.$(0));
+    // 按索引獲取元素
     $: (index?: number) => any;
 
-    // 返回指定值的索引
-    // Returns the index of the specified value
-    // Example: console.log(array.$i('value'));
+    // 獲取指定值的索引
     $i: (value?: any) => number;
 
     // 刪除指定索引的元素並返回新陣列
-    // Removes the element at the specified index and returns a new array
-    // Example: array.$_(0);
     $_: (index?: number) => any[];
 
     // 檢查陣列是否包含指定值
-    // Checks if the array contains the specified value
-    // Example: console.log(array.$$('value'));
     $$: (value: any) => boolean;
 
-    // 發送 HTTP 請求
-    // Sends an HTTP request using the array as a string
-    // Example: array.$req({ key: 'value' });
+    // 發送 HTTP 請求（使用陣列作為字串）
     $req: (body: { [key: string]: string }) => void;
 
-    // 預計於 2.*.* 版移除
-    // Marked for removal in version 2.*.*
-
-    // 陣列長度
-    // Returns the length of the array
-    // Example: console.log(array.$len);
+    // 獲取陣列長度
+    // ! 預計於 2.*.* 版移除
     $len: number;
 
-    // 檢查陣列是否為空
-    // Checks if the array is empty
-    // Example: console.log(array.$$mt);
+    // 檢查陣列是否為空（將被 $$empty 替代）
+    // ! 預計於 2.*.* 版移除
     $$mt: boolean;
 
-    // 將陣列連接成字串
-    // Joins the array into a string, optionally using a separator
-    // Example: console.log(array.$str(', '));
+    // 將陣列連接為字串
+    // ! 預計於 2.*.* 版移除
     $str: (char?: string) => string;
 
-    // 根據函數轉換陣列元素並返回新陣列
-    // Transforms the array elements based on a function and returns a new array
-    // Example: const newArray = array._$(e => e * 2);
+    // 轉換陣列元素並返回新陣列
+    // ! 預計於 2.*.* 版移除
     _$: (value?: (e: any, i: number) => any) => any[];
 };
 
 interface Object {
-    // 返回包含對象所有鍵和值的 Map 物件
-    // Returns a Map object containing all keys and values of the object
-    // Example: console.log(obj.$map);
+    // 將對象轉換為 Map
     $map: Map<string, any>;
 
-    // 返回包含對象所有鍵的陣列
-    // Returns an array containing all keys of the object
-    // Example: console.log(obj.$keys);
+    // 獲取對象所有鍵的陣列
     $keys: string[];
 
-    // 返回包含對象所有值的陣列
-    // Returns an array containing all values of the object
-    // Example: console.log(obj.$vals);
+    // 獲取對象所有值的陣列
     $vals: any[];
 
-    // 根據鍵返回對象中的值，未指定鍵則返回整個物件
-    // Returns the value of the object for the specified key, or the entire object if no key is specified
-    // Example: console.log(obj.$('key1'));
+    // 根據鍵獲取值，無鍵則返回整個對象
     $: (key?: string) => any;
 
     // 檢查對象是否包含指定鍵
-    // Checks if the object contains the specified key
-    // Example: console.log(obj.$$('key1'));
     $$: (key?: string) => boolean;
 
-    // 遍歷對象的每個鍵/值對並執行指定操作
-    // Iterates over each key/value pair of the object and executes the specified function
-    // Example: obj.$forEach((key, value) => console.log(key, value));
+    // 遍歷對象的鍵值對並執行指定函數
+    forEach: (value: (key: string, val: any) => void) => void;
+
+    // 遍歷對象的鍵值對並執行指定函數
+    // ! 預計於 2.*.* 版移除
     $forEach: (value: (key: string, val: any) => void) => void;
 };
 
 interface Map<K, V> {
-    // 返回 Map 物件的 JavaScript 物件表示
-    // Returns a JavaScript object representation of the Map
-    // Example: console.log(map.$obj);
-    $obj: { [key: string]: any };
+    // 轉換為 JSON 對象
+    $json: $JSON;
 
-    // 檢查 Map 物件是否為空，返回布林值
-    // Checks if the Map object is empty, returning a boolean value
-    // Example: console.log(map.$$empty);
+    // 獲取所有鍵的陣列
+    $keys: any[];
+
+    // 獲取所有值的陣列
+    $vals: any[];
+
+    // 檢查是否為空
     $$empty: boolean;
 
-    // 返回 Map 物件的數量
-    // Returns the number of key-value pairs in the Map
-    // Example: console.log(map.length);
+    // 獲取鍵值對數量
     length: number;
 
-    // 用於將新的鍵值對添加到 Map 中
-    // Adds a new key-value pair to the Map
-    // Example: map._('newKey', 'newValue');
+    // 添加新鍵值對
     _: (key?: any, value?: any) => Map<any, any>;
 
-    // 用於根據鍵檢索 Map 中的值
-    // Retrieves a value from the Map based on its key
-    // Example: console.log(map.$('key'));
+    // 根據鍵獲取值
     $: (key?: any) => any;
 
-    // 預計於 2.*.* 版移除
-    // Marked for removal in version 2.*.*
+    // 刪除指定鍵的元素並返回新 Map
+    $_: (key?: any) => Map<any, any>;
 
-    // 返回 Map 物件的數量
-    // Returns the number of key-value pairs in the Map
-    // Example: console.log(map.$len);
+    // 檢查是否包含指定值
+    $$: (value: any) => boolean;
+
+    // 獲取鍵值對數量（替代為 length）
+    // ! 預計於 2.*.* 版移除
     $len: number;
 
-    // 檢查 Map 物件是否為空，返回布林值
-    // Checks if the Map object is empty, returning a boolean value
-    // Example: console.log(map.$mt);
+    // 檢查是否為空（替代為 $$empty）
+    // ! 預計於 2.*.* 版移除
     $mt: boolean;
+
+    // 轉換為普通 JS 對象（替代為 $json）
+    // ! 預計於 2.*.* 版移除
+    $obj: { [key: string]: any };
 };
 
+interface FormData {
+    // 將 FormData 轉換為 Map 對象
+    $map: Map<string, any>;
+
+    // 將 FormData 轉換為 JSON 對象
+    $json: $JSON;
+}
+
 interface Date {
-    // 完整年份
-    // Full year (e.g., 2024)
-    // Example: console.log(date.$y);
-    $y: number;
+    // 年份
+    $y: string;    // 年份後兩位 ("24")
+    $yy: string;   // 年份後兩位 ("24")
+    $yyyy: number; // 完整年份 (2024)
 
-    // 年份的最後兩位數 (字串)
-    // Last two digits of the year (string)
-    // Example: console.log(date.$yy);
-    $yy: string;
+    // 月份
+    $M: number;    // 月份 (1-12)
+    $MM: string;   // 月份 (01-12，補零)
 
-    // 完整年份
-    // Full year (e.g., 2024)
-    // Example: console.log(date.$yyyy);
-    $yyyy: number;
+    // 日期
+    $D: number;    // 日期 (1-31)
+    $DD: string;   // 日期 (01-31，補零)
 
-    // 月份 (1-12)
-    // Month (1-12)
-    // Example: console.log(date.$M);
-    $M: number;
+    // 星期
+    $d: number;    // 星期 (0-6，0為週日)
+    $dd: string;   // 星期極簡稱 ("Su", "Mo")
+    $ddd: string;  // 星期簡稱 ("Sun", "Mon")
+    $dddd: string; // 星期全稱 ("Sunday", "Monday")
 
-    // 月份 (01-12)
-    // Month with leading zero (01-12)
-    // Example: console.log(date.$MM);
-    $MM: string;
+    // 24小時制
+    $H: number;    // 小時 (0-23)
+    $HH: string;   // 小時 (00-23，補零)
 
-    // 日期 (1-31)
-    // Day of the month (1-31)
-    // Example: console.log(date.$D);
-    $D: number;
+    // 12小時制
+    $h: number;    // 小時 (1-12)
+    $hh: string;   // 小時 (01-12，補零)
 
-    // 日期 (01-31)
-    // Day of the month with leading zero (01-31)
-    // Example: console.log(date.$DD);
-    $DD: string;
+    // 上午/下午
+    $a: string;    // am/pm (小寫)
+    $A: string;    // AM/PM (大寫)
 
-    // 星期幾 (0-6)
-    // Day of the week (0-6, where 0 is Sunday)
-    // Example: console.log(date.$d);
-    $d: number;
+    // 分鐘
+    $m: number;    // 分鐘 (0-59)
+    $mm: string;   // 分鐘 (00-59，補零)
 
-    // 星期幾 (字串)
-    // Day of the week (string, e.g., "Sun", "Mon")
-    // Example: console.log(date.$dd);
-    $dd: string;
+    // 秒數
+    $s: number;    // 秒數 (0-59)
+    $ss: string;   // 秒數 (00-59，補零)
 
-    // 24小時制的時 (0-23)
-    // Hours in 24-hour format (0-23)
-    // Example: console.log(date.$H);
-    $H: number;
+    // 毫秒
+    $S: string;    // 毫秒 (百位數，0-9)
+    $SS: string;   // 毫秒 (十位數，00-99)
+    $SSS: string;  // 毫秒 (全位數，000-999)
 
-    // 24小時制的時 (00-23)
-    // Hours in 24-hour format with leading zero (00-23)
-    // Example: console.log(date.$HH);
-    $HH: string;
+    $timestamp: number; // Unix 時間戳
 
-    // 12小時制的時 (1-12)
-    // Hours in 12-hour format (1-12)
-    // Example: console.log(date.$h);
-    $h: number;
+    $gone: string; // 相對時間字串
 
-    // 12小時制的時 (01-12)
-    // Hours in 12-hour format with leading zero (01-12)
-    // Example: console.log(date.$hh);
-    $hh: string;
+    $format: (format: string) => string; // 自定義格式化
 
-    // 上下午 (am/pm)
-    // AM/PM (lowercase)
-    // Example: console.log(date.$a);
-    $a: string;
-
-    // 上下午 (AM/PM)
-    // AM/PM (uppercase)
-    // Example: console.log(date.$A);
-    $A: string;
-
-    // 分鐘 (0-59)
-    // Minutes (0-59)
-    // Example: console.log(date.$m);
-    $m: number;
-
-    // 分鐘 (00-59)
-    // Minutes with leading zero (00-59)
-    // Example: console.log(date.$mm);
-    $mm: string;
-
-    // 秒數 (0-59)
-    // Seconds (0-59)
-    // Example: console.log(date.$s);
-    $s: number;
-
-    // 秒數 (00-59)
-    // Seconds with leading zero (00-59)
-    // Example: console.log(date.$ss);
-    $ss: string;
-
-    // Unix 時間戳記
-    // Unix timestamp
-    // Example: console.log(date.$timestamp);
-    $timestamp: number;
-
-    // 計算經過的時間，回傳相對時間的字串
-    // Calculates the elapsed time, returning a relative time string
-    // Example: console.log(date.$gone);
-    $gone: string;
-
-    // 依指定格式轉換為字串
-    // Formats the date as a string according to the specified format
-    // Example: console.log(date.$format("YYYY-MM-DD HH:mm:ss"));
-    $format: (format: string) => string;
-
-    // 根據提供的配置生成新的日期物件
-    // Generates a new Date object based on the provided configuration
     /**
-     * Example: 
-     * 返回當前月份的第一天
-     * const newDate = date.$date({ 
-     *     start: true
-     * });
-     * 返回當前月份的最後一天
-     * const newDate = date.$date({ 
-     *     end: true
-     * });
-     * 返回上個月份的第一天
-     * const newDate = date.$date({ 
-     *     pre: {
-     *         start: true
-     *     }
-     * });
-     * 返回上個月份的最後一天
-     * const newDate = date.$date({ 
-     *     pre: {
-     *         end: true
-     *     }
-     * });
+     * 生成新日期對象
+     * 
+     * 例：
+     * - 當月首日：$date({ start: true })
+     * - 當月末日：$date({ end: true })
+     * - 上月首日：$date({ pre: { start: true } })
+     * - 上月末日：$date({ pre: { end: true } })
      */
     $date: (body?: { [key: string]: any }) => Date;
+};
+
+interface URL {
+    // 獲取所有查詢參數
+    $queryAll: { [key: string]: string };
+
+    /**
+     * 發送 HTTP 請求
+     * 
+     * 示例：
+     * URL.$req({
+     *     method: "POST",
+     *     json: { test: "test" },
+     *     header: {
+     *         "Content-Type": "application/json;charset=UTF-8"
+     *     }
+     * }).then(res => console.log("成功:", res))
+     *   .catch(err => console.error("錯誤:", err));
+     * 
+     * URL.$req({
+     *     method: "POST",
+     *     json: { test: "test" },
+     *     files: [FILES],
+     *     tag: "files[]"
+     * }).then(res => console.log("成功:", res))
+     *   .catch(err => console.error("錯誤:", err));
+     */
+    $req: (body: $JSON, once?: boolean) => void;
+
+    // 推送新歷史記錄
+    _history: (title?: string) => URL;
+
+    // 替換當前歷史記錄
+    __history: (title?: string) => URL;
+
+    // 添加查詢參數
+    _query: (value?: { [key: string]: string }) => URL;
+
+    // 更新查詢參數
+    __query: (value?: { [key: string]: string }) => URL;
+
+    // 移除指定查詢參數
+    query_: (value?: string | string[]) => URL;
+
+    // 清空所有查詢參數
+    query__: () => URL;
+
+    // 獲取指定查詢參數值
+    $query: (key?: string) => string | undefined;
 };
 
 interface Image {
@@ -662,103 +493,34 @@ interface Image {
     download: (mime: string, filename?: string) => void;
 
     // 預計於 2.*.* 版移除
-    // Marked for removal in version 2.*.*
-
     // 產生 JPEG 圖片的 base64 編碼
     // Generates a base64-encoded string of the image in JPEG format
     // Example: console.log(image.$jpg(100));
     $jpg: (size: number) => string;
 
+    // 預計於 2.*.* 版移除
     // 產生 PNG 圖片的 base64 編碼
     // Generates a base64-encoded string of the image in PNG format
     // Example: console.log(image.$png(100));
     $png: (size: number) => string;
 
+    // 預計於 2.*.* 版移除
     // 下載 JPEG 格式的圖片
     // Downloads the image in JPEG format
     // Example: image._downloadJPG('myImage.jpg');
     _downloadJPG: (filename?: string) => void;
 
+    // 預計於 2.*.* 版移除
     // 下載 PNG 格式的圖片
     // Downloads the image in PNG format
     // Example: image._downloadPNG('myImage.png');
     _downloadPNG: (filename?: string) => void;
 
+    // 預計於 2.*.* 版移除
     // 下載圖片
     // Downloads the image
     // Example: image._download('image/png', 'myImage.png');
     _download: (mime: string, filename?: string) => void;
-};
-
-interface URL {
-    // 解析 URL 中的所有查詢參數
-    // Parses all query parameters in the URL
-    // Example: console.log(url.$queryAll);
-    $queryAll: { [key: string]: string };
-
-    /**
-     * 根據提供的配置發送 HTTP 請求。
-     * Sends an HTTP request using the provided configuration.
-     * Example:
-     * URL.$req({
-     *     method: "POST",
-     *     json: { test: "test" },
-     *     header: {
-     *         "Content-Type": "application/json;charset=UTF-8"
-     *     }
-     * }).then(res => {
-     *     console.log("Success:", res);
-     * }).catch(err => {
-     *     console.error("Error:", err);
-     * });
-     * 
-     * URL.$req({
-     *     method: "POST",
-     *     json: { test: "test" },
-     *     files: [FILES],
-     *     tag: "files[]"
-     * }).then(res => {
-     *     console.log("Success:", res);
-     * }).catch(err => {
-     *     console.error("Error:", err);
-     * });
-     */
-    $req: (body: { [key: string]: string }, once?: boolean) => void;
-
-    // 推送歷史紀錄並更新 URL
-    // Pushes a new history record and updates the URL
-    // Example: url._history("New Title");
-    _history: (title?: string) => URL;
-
-    // 替換歷史紀錄並更新 URL
-    // Replaces the current history record and updates the URL
-    // Example: url.__history("New Title");
-    __history: (title?: string) => URL;
-
-    // 新增 URL 查詢參數
-    // Adds or updates query parameters in the URL
-    // Example: url._query({ key: "value" });
-    _query: (value?: { [key: string]: string }) => URL;
-
-    // 更新 URL 查詢參數
-    // Adds or updates query parameters in the URL
-    // Example: url._query({ key: "value" });
-    __query: (value?: { [key: string]: string }) => URL;
-
-    // 移除 URL 查詢參數
-    // Removes query parameters from the URL
-    // Example: url.__query({ key: "value" });
-    query_: (value?: string | string[]) => URL;
-
-    // 刪除查詢參數
-    // Deletes query parameters from the URL
-    // Example: url.query__({ key: "value" });
-    query__: (value?: string | string[]) => URL;
-
-    // 取得指定查詢參數的值
-    // Retrieves the value of a specific query parameter
-    // Example: console.log(url.$query("key"));
-    $query: (key?: string) => string | null;
 };
 
 interface Element {
@@ -776,6 +538,15 @@ interface Element {
     // Returns the outerHTML of the element
     // Example: console.log(element.$html);
     $html: string;
+
+    // 返回元素的 FormData
+    $formData: FormData | undefined;
+
+    // 返回元素的 FormData 並轉成 JSON
+    $map: Map<string, any> | undefined;
+
+    // 返回元素的 FormData 並轉成 JSON
+    $json: $JSON | undefined;
 
     // 返回元素的 scrollLeft
     // Returns the scrollLeft value of the element
