@@ -2,32 +2,32 @@
 
 ![](https://img.shields.io/badge/tag-JavaScript%20Library-bb4444) ![](https://img.shields.io/github/license/pardnchiu/PDRenderKit?color=44bb44) ![](https://img.shields.io/badge/creator-Pardn%20Chiu-4444bb)<br>
 ![](https://img.shields.io/github/v/release/pardnchiu/PDRenderKit?color=bbbb44) ![](https://img.shields.io/npm/v/pdrenderkit?color=44bbbb) ![](https://img.shields.io/github/size/pardnchiu/PDRenderKit/dist%2FPDRenderKit.js?color=bb44bb)<br>
-[![](https://img.shields.io/badge/點擊查看-中文版本-ffffff)](https://github.com/pardnchiu/PDRenderKit/blob/main/README.zh.md)
+[![](https://img.shields.io/badge/read-English%20Version-ffffff)](https://github.com/pardnchiu/PDRenderKit/blob/main/README.md)
 
-PDRenderKit contains a lightweight front-end framework designed to separate the front-end user interface and data logic.<br>
-Improving code maintainability and readability while reducing development complexity.
+PDRenderKit 是一個輕量化的前端框架，用於分離前端介面和資料邏輯<br>
+提高代碼的可維護性和可讀性，同時減少開發複雜度。
 
 ## Feature
 
-- ### Separation of UI and Data Logic:
-    Segregates front-end presentation from data logic, creating a clearer structure and simplifying maintenance tasks.
+- ### UI 和資料邏輯分離
+    將前端介面與資料邏輯分開，創建更清晰的結構，簡化維護工作。
 
-- ### Reduction of Repetitive Code:
-    Provides tools and utilities to minimize repetitive code sections, improving code conciseness.
+- ### 減少重複代碼
+    減少重複的代碼段，提高代碼簡潔性。
 
-- ### Improved Code Readability:
-    Modular design enhances code readability, making it easier to understand and collaborate on.
+- ### 提高代碼可讀性
+    模組化設計提升代碼可讀性，使其更易於理解和協作。
 
-- ### Data Change Monitoring:
-    Automatically updates the user interface in real-time based on data changes, reducing manual DOM manipulation steps.
+- ### 監控資料變更
+    基於資料變更自動更新用戶介面，減少手動 DOM 操作步驟。
 
-- ### Automatic Rendering:
-    Reduces manual DOM manipulation, allowing you to focus more on the core logic of your application.
+- ### 自動渲染
+    減少手動 DOM 操作，專注於應用的邏輯。
 
-- ### Lightweight:
-    Ensuring full functionality with minimal impact on your website's speed.
+- ### 輕量化
+    保證全功能的同時，最小化對網站速度的影響。
 
-### Creator
+### 創建者
 
 <img src="https://pardn.io/image/head-s.jpg" align="left" style="float: left; margin-right: 0.5rem; width: 96px; height: 96px;" />
 
@@ -35,39 +35,39 @@ Improving code maintainability and readability while reducing development comple
 
 [![](https://pardn.io/image/mail.svg)](mailto:mail@pardn.ltd) [![](https://skillicons.dev/icons?i=linkedin)](https://linkedin.com/in/pardnchiu) 
 
-### License
+### 許可證
 
-This source code project is licensed under the [GPL-3.0](https://github.com/pardnchiu/PDRenderKit/blob/main/LICENSE) license.
+此源代碼專案已根據 [GPL-3.0](https://github.com/pardnchiu/PDRenderKit/blob/main/LICENSE) 許可證授權。
 
-### How to use
+### 使用方法
 
-- #### Directly Download the Package
+- #### 直接下載套件
     ```Shell
     npm install pdrenderkit
     ```
 
-- #### Or Include via `cdn.jsdelivr.new`
+- #### 或通過 `cdn.jsdelivr.new` 引入
     ```HTML
     <script src="https://cdn.jsdelivr.net/gh/pardnchiu/PDRenderKit@[VERSION]/dist/PDRenderKit.js" copyright="Pardn Ltd">
     ```
 
 - #### PD (formerly named $dom)
-    Auto Rendering: Load auto-rendering and automatically render data changes after detection.
+    自動渲染：加載自動渲染並在檢測到資料變更後自動渲染。
     | tag | description |
     | --- | --- |
-    | {{value}} | Insert text into HTML tag and update the value based on data changes. |
-    | :path | Load HTML fragments from external files into the current page. |
-    | :html | Replace innerHTML of an element with text. |
-    | :for | Supports item in items, (item, index) in items, (key, value) in object.<br>Iterate through a data collection and generate corresponding HTML elements for repetitive data display. |
-    | :if<br>:else-if<br>:else | 根據指定條件顯示或隱藏元素，為實現分支邏輯添加多種選項。<br>Show or hide elements based on specified conditions, adding multiple options for implementing branching logic. |
-    | :model | Bind data to form elements (e.g., input), automatically updating the data when input changes. |
-    | :hide | Hides elements, conditionally displaying them based on specific criteria. |
-    | :once | Executes the binding or operation only once. |
-    | :[attr] | Set element attributes such as ID, class, image source, etc.<br>For example: :id/:class/:src/:alt/:href... |
-    | @[event] | Add event listeners to execute specified actions when events are triggered.<br>例如：@click/@input/@mousedown...<br>For example: @click/@input/@mousedown... |
-    | :@[event] | Set event handlers for individual elements within a loop, allowing different event handling for each element. |
+    | {{value}} | 將文字插入到 HTML 標籤中，並根據資料變更更新值。 |
+    | :path | 將外部文件中的 HTML 片段加載到當前頁面。 |
+    | :html | 使用文字替換元素的 innerHTML。 |
+    | :for | 支持 item in items、(item, index) in items、(key, value) in object。<br>遍歷數據集合，為重複數據顯示生成相應的 HTML 元素。 |
+    | :if<br>:else-if<br>:else | 根據指定條件顯示或隱藏元素，為實現分支邏輯添加多種選項。 |
+    | :model | 將資料綁定到表單元素（如 input），當輸入更改時自動更新資料。 |
+    | :hide | 隱藏元素，根據特定條件顯示它們。 |
+    | :once | 只執行一次綁定或操作。 |
+    | :[attr] | 設定元素屬性，例如 ID、class、圖像來源等。<br>例如：:id/:class/:src/:alt/:href... |
+    | @[event] | 添加事件監聽器，當事件觸發時執行指定操作。<br>例如：@click/@input/@mousedown... |
+    | :@[event] | 為迴圈內的單個元素設置事件處理程序，允許為每個元素設置不同的事件處理。 |
     - ##### `:path` / `:html`
-        *Make sure to disable local file restrictions in your browser or use a live server when you are testing `:path`.*
+        *確保在測試 `:path` 時禁用瀏覽器中的本地文件限制或使用實時服務器。*
         - test.html
             ```html
             <h1>path heading</h1>
@@ -123,7 +123,7 @@ This source code project is licensed under the [GPL-3.0](https://github.com/pard
                 <li id="test3" index="2">test3 3</li>
             </body>
             ```
-    - ##### Nested `:for` Loop
+    - ##### 嵌套 `:for` 迴圈 
         - index.html
             ```html
             <body id="app">
@@ -291,9 +291,9 @@ This source code project is licensed under the [GPL-3.0](https://github.com/pard
                 });
             </script>
             ```
-    - ##### More Attributes
+    - ##### 更多屬性
         `:padding`, `:margin`, `:border`, `:border-radius`, `:outline`, `:box-sahdow`, `:bg-image`, `:bg-attachment`, `:bg-blend-mode`, `:bg-clip`, `:bg-origin`, `:bg-position`, `:bg-position-x`, `:bg-position-y`, `:bg-repeat`, `:bg-size`, `:bg-color`, `:color`
-    - ##### Function 
+    - ##### 函式
         - ###### `LENGTH()`:
             - index.html
                 ```HTML
@@ -379,7 +379,7 @@ This source code project is licensed under the [GPL-3.0](https://github.com/pard
                     <p>2024-08-17 03:40:47</p>
                 </body>
                 ```
-    - ##### 渲染完成 / Rendering completed
+    - ##### 渲染完成
         ```html
         <body id="app"></body>
         <script>
@@ -392,7 +392,7 @@ This source code project is licensed under the [GPL-3.0](https://github.com/pard
         </script>
         ```
 
-### Extension
+### 擴展
 
 - #### Before
     ```javascript
@@ -457,7 +457,7 @@ This source code project is licensed under the [GPL-3.0](https://github.com/pard
     });
     ```
     
-- #### Get Element
+- #### 獲取元素
     - Before
         ```javascript
         document.getElementById("test");
@@ -473,7 +473,7 @@ This source code project is licensed under the [GPL-3.0](https://github.com/pard
         "input[name='test']".$;
         ```
 
-- #### Add Element
+- #### 添加元素
     - Before
         ```html
         <div class="test" style="width: 5rem; height: 80px;" test="test">
@@ -496,10 +496,6 @@ This source code project is licensed under the [GPL-3.0](https://github.com/pard
             ])
         ]);
         ```
-
-***
-
-*All translations powered by ChatGPT*
 
 ***
 

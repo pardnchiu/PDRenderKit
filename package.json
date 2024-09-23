@@ -1,6 +1,6 @@
 {
     "name": "pdrenderkit",
-    "version": "1.4.0",
+    "version": "1.5.0",
     "description": "PDRenderKit contains a lightweight front-end framework designed to separate the front-end user interface and data logic.",
     "main": "dist/PDRenderKit.js",
     "scripts": {

@@ -76,84 +76,91 @@ interface Window {
 };
 
 interface String {
-    // 轉換為 JSON，失敗時返回 undefined
+    // 將字串解析為 JSON 物件，解析失敗時返回 undefined
     $json: $JSON | undefined;
-    // 轉換為 HTML 實體編碼
+    // 將字串轉換為 HTML 安全的實體編碼
     $html: string;
-    // 檢查是否為 JSON 格式
+    // 檢查字串是否可以被解析為有效的 JSON
     $$json: boolean;
-    // 檢查是否為空字串
+    // 檢查字串是否為空（去除首尾空白後長度為 0）
     $$empty: boolean;
-    // 複製到剪貼簿
+    // 將字串內容複製到系統剪貼簿
     copy: () => any;
-    // 替換字串中的指定部分
-    __: (target?: RegExp | string, replace?: string) => string;
-    // 生成正則表達式
+    // 替換字串中的指定內容，如果搜索值為空則返回原字串
+    __: (search_value: RegExp | string, replace_value: string) => string;
+    // 將字串轉換為正則表達式，可選擇指定標誌
     $regexp: (flags?: string) => RegExp;
-    // URI 編碼
-    $en: (component?: Boolean) => String;
-    // URI 解碼
-    $de: (component?: Boolean) => String;
-    // 檢查字串是否等於指定值或匹配正則
-    $$: (equalTo?: RegExp | String) => boolean;
+    // 檢查字串是否完全匹配指定的字串或正則表達式
+    $$: (search_value?: RegExp | String) => boolean;
+    // 對字串進行 URI 編碼
+    $en: (include_component?: Boolean) => String;
+    // 對字串進行 URI 解碼
+    $de: (include_component?: Boolean) => String;
 
-    // URL 相關操作
-    // 轉換為 URL 物件
+    // * URL 擴展
+
+    // 將字串解析為 URL 物件
     $url: URL;
-    // 轉換為圖片元素的 Promise
+    // 將字串轉換為 Image 物件並返回 Promise
     $img: Promise<HTMLImageElement | undefined>;
-    // 解析 URL 查詢參數
+    // 解析 URL 的所有查詢參數為物件
     $queryAll: { [key: string]: string };
-    // 驗證 URL 有效性
+    // 驗證 URL 是否可訪問（HTTP 狀態 200），圖片 URL 會返回 Image 物件
     $$200: (isImage?: Boolean) => Promise<any>;
-    // 發送 HTTP 請求
-    $req: (body: $JSON) => void;
-    // 推送歷史記錄並更新 URL
-    _history: (title?: string) => URL;
-    // 替換歷史記錄並更新 URL
-    __history: (title?: string) => URL;
-    // 更新 URL 查詢參數
-    _query: (value?: { [key: string]: string }) => URL;
-    // 移除 URL 查詢參數
-    __query: (value?: { [key: string]: string }) => URL;
-    // 刪除指定查詢參數
-    query_: (value?: string | string[]) => URL;
-    // 清除所有查詢參數
+    // 向 URL 發送 HTTP 請求
+    $req: (request_body: $JSON) => void;
+    // 將當前 URL 推入瀏覽器歷史記錄
+    _history: (page_title?: string) => URL;
+    // 替換當前瀏覽器歷史記錄項
+    __history: (page_title?: string) => URL;
+    // 更新或添加 URL 查詢參數
+    _query: (query_value?: { [key: string]: string }) => URL;
+    // 重置 URL 查詢參數
+    __query: (query_value?: { [key: string]: string }) => URL;
+    // 從 URL 中刪除指定的查詢參數
+    query_: (target_value?: string | string[]) => URL;
+    // 清除 URL 中的所有查詢參數
     query__: () => URL;
-    // 取得指定查詢參數的值
-    $query: (key?: string) => string;
+    // 獲取 URL 中指定查詢參數的值
+    $query: (target_key?: string) => string;
 
-    // Element 相關操作
+    // * Element 擴展
+
     // 創建 Font Awesome 圖標元素
     _fa: Element;
-    // 選擇單個 DOM 元素
+    // 選擇單個 DOM 元素（支援 ID 和 CSS 選擇器）
     $: Element;
-    // 選擇多個 DOM 元素
+    // 選擇多個 DOM 元素（返回陣列）
     $all: Element[];
-    // 生成 DOM 元素
+    // 根據字串描述創建 DOM 元素，支援屬性和子元素設置
     _: (val0?: any, val1?: any) => Element;
 
-    // 轉換為數字，失敗時返回 undefined
+    // 將字串轉換為數字，轉換失敗時返回 undefined
     // ! 預計於 2.*.* 版移除
     $num: number | undefined;
-    // 獲取字串長度
+    // 獲取字串的字元長度
     // ! 預計於 2.*.* 版移除
     $len: number;
-    // 檢查是否為空字串
+    // 檢查字串是否為空（用 $$empty 替代）
     // ! 預計於 2.*.* 版移除
     $$mt: boolean;
     // 將字串分割為陣列
     // ! 預計於 2.*.* 版移除
     $ary: (target?: string | RegExp) => string[];
-    // 匹配正則並返回結果
+    // 使用正則表達式匹配字串並返回結果
     // ! 預計於 2.*.* 版移除
     $fit: (regex: RegExp) => string | string[] | undefined;
-    // 複製到剪貼簿
+    // 複製字串到剪貼簿（用 copy 替代）
     // ! 預計於 2.*.* 版移除
     $copy: () => any;
 };
 
 interface Number {
+
+    $random: string;
+
+    $ASCII: string;
+
     // Date 擴展
 
     // 將秒數轉換為 Date 對象
@@ -247,32 +254,38 @@ interface Number {
 };
 
 interface Array<T> {
-    // 將陣列轉換為 Map（鍵：元素，值：索引）
-    $map: Map<any, number>;
 
-    // 隨機排序陣列
-    $random: any[];
+    // 計算陣列所有數值元素的總和
+    $sum: number;
+
+    // 返回隨機打亂元素順序後的新陣列
+    $shuffle: any[];
+
+    // 將陣列轉換為 Map 對象，其中鍵為元素值，值為該元素在陣列中的索引
+    $map: Map<any, number>;
 
     // 檢查陣列是否為空
     $$empty: boolean;
 
-    // 添加值到陣列
-    _: (value?: any | any[]) => any[];
+    // 在指定索引處插入單個值或陣列，若未指定索引則添加到陣列末尾
+    _: (insert_value: any | any[], insert_index?: number) => any[];
 
-    // 按索引獲取元素
-    $: (index?: number) => any;
+    // 根據給定索引獲取元素，支持負數索引（從陣列末尾開始計數）
+    $: (value_index: number) => any;
 
-    // 獲取指定值的索引
-    $i: (value?: any) => number;
+    // 查找指定值在陣列中的索引，如果不存在則返回 undefined
+    $i: (target_value: any) => number;
 
-    // 刪除指定索引的元素並返回新陣列
-    $_: (index?: number) => any[];
+    // 刪除指定索引處的元素並返回修改後的新陣列
+    $_: (value_index: number) => any[];
 
-    // 檢查陣列是否包含指定值
-    $$: (value: any) => boolean;
+    /// 檢查陣列是否包含指定值，若不提供參數則檢查陣列是否為非空
+    $$: (target_value?: any) => boolean;
 
-    // 發送 HTTP 請求（使用陣列作為字串）
-    $req: (body: { [key: string]: string }) => void;
+    // * String 擴展
+
+    // 使用陣列元素作為 URL 路徑發送 HTTP 請求
+    $req: (body: $JSON) => void;
 
     // 獲取陣列長度
     // ! 預計於 2.*.* 版移除
@@ -282,37 +295,42 @@ interface Array<T> {
     // ! 預計於 2.*.* 版移除
     $$mt: boolean;
 
-    // 將陣列連接為字串
+    // 隨機排序陣列（將被 $shuffle 替代）
+    // ! 預計於 2.*.* 版移除
+    $random: any[];
+
+    // 將陣列元素連接為字串，可指定分隔符
     // ! 預計於 2.*.* 版移除
     $str: (char?: string) => string;
 
-    // 轉換陣列元素並返回新陣列
+    // 對陣列每個元素應用轉換函數並返回新陣列
     // ! 預計於 2.*.* 版移除
     _$: (value?: (e: any, i: number) => any) => any[];
 };
 
 interface Object {
-    // 將對象轉換為 Map
-    $map: Map<string, any>;
 
-    // 獲取對象所有鍵的陣列
+    // 返回一個包含物件所有可枚舉屬性鍵名的陣列
     $keys: string[];
 
-    // 獲取對象所有值的陣列
+    // 返回一個包含物件所有可枚舉屬性值的陣列
     $vals: any[];
 
-    // 根據鍵獲取值，無鍵則返回整個對象
-    $: (key?: string) => any;
+    // 將物件轉換為 Map 物件，鍵為屬性名，值為屬性值
+    $map: Map<string, any>;
 
-    // 檢查對象是否包含指定鍵
-    $$: (key?: string) => boolean;
+    // 設置或更新物件指定鍵的值，預設會替換已存在的值
+    _: (target_key: string | number, target_value: any, replace_value?: boolean) => { [key: string]: any };
 
-    // 遍歷對象的鍵值對並執行指定函數
-    forEach: (value: (key: string, val: any) => void) => void;
+    // 檢查物件是否包含指定的鍵。如果未提供鍵，則檢查物件是否為空
+    $$: (target_key?: string | number) => boolean;
 
-    // 遍歷對象的鍵值對並執行指定函數
+    // 遍歷物件的可枚舉屬性，對每個鍵值對執行指定的回調函數
+    forEach: (callback_function: (key: string, val: any) => void) => void;
+
+    // 與 forEach 功能相同，用於向後兼容
     // ! 預計於 2.*.* 版移除
-    $forEach: (value: (key: string, val: any) => void) => void;
+    $forEach: (callback_function: (key: string, val: any) => void) => void;
 };
 
 interface Map<K, V> {
@@ -343,15 +361,15 @@ interface Map<K, V> {
     // 檢查是否包含指定值
     $$: (value: any) => boolean;
 
-    // 獲取鍵值對數量（替代為 length）
+    // 獲取鍵值對數量（用 length 替代）
     // ! 預計於 2.*.* 版移除
     $len: number;
 
-    // 檢查是否為空（替代為 $$empty）
+    // 檢查是否為空（用 $$empty 替代）
     // ! 預計於 2.*.* 版移除
     $mt: boolean;
 
-    // 轉換為普通 JS 對象（替代為 $json）
+    // 轉換為普通 JS 對象（用 $json 替代）
     // ! 預計於 2.*.* 版移除
     $obj: { [key: string]: any };
 };
@@ -524,449 +542,327 @@ interface Image {
 };
 
 interface Element {
-    // 返回元素的 innerHTML
-    // Returns the innerHTML of the element
-    // Example: console.log(element.$);
+    // 獲取元素的 innerHTML 內容
     $: string;
 
-    // 返回純文字的內容
-    // Returns the text content of the element
-    // Example: console.log(element.$text);
-    $text: string;
-
-    // 返回元素的 outerHTML
-    // Returns the outerHTML of the element
-    // Example: console.log(element.$html);
+    // 獲取元素的完整 HTML 結構，包括元素本身
     $html: string;
 
-    // 返回元素的 FormData
-    $formData: FormData | undefined;
-
-    // 返回元素的 FormData 並轉成 JSON
-    $map: Map<string, any> | undefined;
-
-    // 返回元素的 FormData 並轉成 JSON
-    $json: $JSON | undefined;
-
-    // 返回元素的 scrollLeft
-    // Returns the scrollLeft value of the element
-    // Example: console.log(element.$x);
+    // 獲取元素的水平滾動位置
     $x: number;
 
-    // 返回元素的 scrollTop
-    // Returns the scrollTop value of the element
-    // Example: console.log(element.$y);
+    // 獲取元素的垂直滾動位置
     $y: number;
 
-    // 返回元素的 clientWidth
-    // Returns the clientWidth of the element
-    // Example: console.log(element.$w);
+    // 獲取元素的可視寬度
     $w: number;
 
-    // 返回元素的 clientHeight
-    // Returns the clientHeight of the element
-    // Example: console.log(element.$h);
+    // 獲取元素的可視高度
     $h: number;
 
-    // 返回元素的 scrollWidth
-    // Returns the scrollWidth of the element
-    // Example: console.log(element.$sw);
+    // 獲取元素的完整滾動寬度，包括不可見部分
     $sw: number;
 
-    // 返回元素的 scrollHeight
-    // Returns the scrollHeight of the element
-    // Example: console.log(element.$sh);
+    // 獲取元素的完整滾動高度，包括不可見部分
     $sh: number;
 
-    // 返回元素的 naturalWidth
-    // Returns the naturalWidth of the element (for images)
-    // Example: console.log(element.$nw);
+    // 獲取圖片元素的原始寬度
     $nw: number;
 
-    // 返回元素的 naturalHeight
-    // Returns the naturalHeight of the element (for images)
-    // Example: console.log(element.$nh);
+    // 獲取圖片元素的原始高度
     $nh: number;
 
-    // 返回在父元素中的索引
-    // Returns the index of the element within its parent
-    // Example: console.log(element.$i);
+    // 獲取元素的純文字內容，去除 HTML 標籤 (不包含子元素)
+    $text: string;
+
+    // 獲取元素在其父元素中的索引位置
     $i: number;
 
-    // 返回元素的 attributes 的陣列
-    // Returns a map of the element's attributes
-    // Example: console.log(element.$attributes);
+    // 獲取元素的所有屬性，以物件形式返回
     $attributes: { [key: string]: string };
 
-    // 返回元素的 classList 的陣列
-    // Returns the classList of the element as an array
-    // Example: console.log(element.$classList);
+    // 獲取元素的所有類別名稱，以陣列形式返回
     $classList: string[];
 
-    // 返回子元素的陣列
-    // Returns an array of child elements
-    // Example: console.log(element.$children);
+    // 獲取元素的所有子元素，以陣列形式返回
     $children: Element[];
 
-    // 返回子節點的陣列
-    // Returns an array of child nodes
-    // Example: console.log(element.$childNodes);
+    // 獲取元素的所有子節點，包括文字節點和註釋節點
     $childNodes: ChildNode[];
 
-    // 返回子元素的數量
-    // Returns the number of child elements
-    // Example: console.log(element.length);
+    // 獲取元素子元素的數量
     length: number;
 
-    // 添加內容至元素的 innerHTML
-    // Adds content to the element's innerHTML
-    // Example: element._('<div>New Content</div>');
-    _: (innerHTML?: string) => Element;
+    // 在元素的 innerHTML 末尾添加內容
+    _: (insert_value: any) => Element;
 
-    // 覆蓋元素的 innerHTML 內容
-    // Replaces the element's innerHTML with new content
-    // Example: element.__('<div>New Content</div>');
-    __: (innerHTML?: string) => Element;
+    // 清空並重新設置元素的 innerHTML 內容
+    __: (insert_value?: any) => Element;
 
-    // 複製元素
-    // Clones the element
-    // Example: const clone = element._$(true);
-    _$: (deep?: boolean) => Element;
+    // 複製元素，可選擇是否深度複製
+    _$: (clone_deep?: boolean) => Element;
 
-    // 更新元素的 scrollLeft
-    // Updates the scrollLeft value of the element
-    // Example: element._x(100);
-    _x: (value?: number) => Element;
+    // 設置元素的水平滾動位置
+    _x: (scroll_value?: number) => Element;
 
-    // 更新元素的 scrollTop
-    // Updates the scrollTop value of the element
-    // Example: element._y(100);
-    _y: (value?: number) => Element;
+    // 設置元素的垂直滾動位置
+    _y: (scroll_value?: number) => Element;
 
-    // 更新元素的 style.width
-    // Updates the style.width of the element
-    // Example: element._w('100%');
-    _w: (value?: number | string) => Element;
+    // 設置元素的寬度樣式
+    _w: (targt_value?: number | string) => Element;
 
-    // 更新元素的 style.height
-    // Updates the style.height of the element
-    // Example: element._h('100%');
-    _h: (value?: number | string) => Element;
+    // 設置元素的高度樣式
+    _h: (targt_value?: number | string) => Element;
 
-    /**
-     * 批量設置內邊距
-     * Sets the padding of the element in bulk
-     * Example:
-     * ```
-     * element._p(10); // 設置四個方向的內邊距為 10
-     * element._p(10, 20); // 設置上下內邊距為 10，左右內邊距為 20
-     * element._p(10, 20, 30); // 設置上內邊距為 10，左右內邊距為 20，下內邊距為 30
-     * element._p(10, 20, 30, 40); // 設置上內邊距為 10，右內邊距為 20，下內邊距為 30，左內邊距為 40
-     * ```
-     */
-    _p: (top?: number | string, right?: number | string, bottom?: number | string, left?: number | string) => Element;
+    // 設置元素的上內邊距
+    _paddingT: (change_value?: number | string) => Element;
 
-    // 更新元素的內邊距: 上
-    // Updates the padding-top of the element
-    // Example: element._pt(10);
-    _pt: (value?: number | string) => Element;
+    // 設置元素的左內邊距
+    _paddingL: (change_value?: number | string) => Element;
 
-    // 更新元素的內邊距: 左
-    // Updates the padding-left of the element
-    // Example: element._pl(10);
-    _pl: (value?: number | string) => Element;
+    // 設置元素的下內邊距
+    _paddingB: (change_value?: number | string) => Element;
 
-    // 更新元素的內邊距: 下
-    // Updates the padding-bottom of the element
-    // Example: element._pb(10);
-    _pb: (value?: number | string) => Element;
+    // 設置元素的右內邊距
+    _paddingR: (change_value?: number | string) => Element;
 
-    // 更新元素的內邊距: 右
-    // Updates the padding-right of the element
-    // Example: element._pr(10);
-    _pr: (value?: number | string) => Element;
+    // 設置元素的上外邊距
+    _marginT: (change_value?: number | string) => Element;
 
-    /**
-      * 批量設置邊距
-      * Sets the margin of the element in bulk
-      * Example:
-      * ```
-      * element._m(10); // 設置四個方向的邊距為 10
-      * element._m(10, 20); // 設置上下邊距為 10，左右邊距為 20
-      * element._m(10, 20, 30); // 設置上邊距為 10，左右邊距為 20，下邊距為 30
-      * element._m(10, 20, 30, 40); // 設置上邊距為 10，右邊距為 20，下邊距為 30，左邊距為 40
-      * ```
-      */
-    _m: (top?: number | string, right?: number | string, bottom?: number | string, left?: number | string) => Element;
+    // 設置元素的左外邊距
+    _marginL: (change_value?: number | string) => Element;
 
-    // 更新元素的外邊距: 上
-    // Updates the margin-top of the element
-    // Example: element._mt(10);
-    _mt: (value?: number | string) => Element;
+    // 設置元素的下外邊距
+    _marginB: (change_value?: number | string) => Element;
 
-    // 更新元素的外邊距: 左
-    // Updates the margin-left of the element
-    // Example: element._ml(10);
-    _ml: (value?: number | string) => Element;
+    // 設置元素的右外邊距
+    _marginR: (change_value?: number | string) => Element;
 
-    // 更新元素的外邊距: 下
-    // Updates the margin-bottom of the element
-    // Example: element._mb(10);
-    _mb: (value?: number | string) => Element;
+    // 一次性設置元素的所有內邊距
+    _padding: (top_value: number | string, right_value?: number | string, bottom_value?: number | string, left_value?: number | string) => Element;
 
-    // 更新元素的外邊距: 右
-    // Updates the margin-right of the element
-    // Example: element._mr(10);
-    _mr: (value?: number | string) => Element;
+    // 一次性設置元素的所有外邊距
+    _margin: (top_value: number | string, right_value?: number | string, bottom_value?: number | string, left_value?: number | string) => Element;
 
-    // 移除 class
-    // Removes a class or classes from the element
-    // Example: element.class_('my-class');
-    class_: (value?: string | string[]) => Element;
+    // 批量添加或修改元素的樣式
+    _style: (change_value: { [key: string]: string }) => Element;
 
-    // 清除 class
-    // Clears all classes from the element
-    // Example: element.class__();
+    // 批量添加或修改元素的 data 屬性
+    _data: (change_value: { [key: string]: string | number }) => Element;
+
+    // 批量添加或修改元素的屬性
+    _attr: (change_value: { [key: string]: string | number }) => Element;
+
+    // 添加一個或多個類別名稱到元素
+    _class: (change_value: string | string[]) => Element;
+
+    // 從元素中移除一個或多個類別名稱
+    class_: (change_value: string | string[]) => Element;
+
+    // 從元素中移除指定的樣式
+    style_: (change_value: string | string[]) => Element;
+
+    // 從元素中移除指定的 data 屬性
+    data_: (change_value: string | string[]) => Element;
+
+    // 從元素中移除指定的屬性
+    attr_: (change_value: string | string[]) => Element;
+
+    // 獲取元素指定樣式的值
+    $style: (target_value: string) => string | undefined;
+
+    // 獲取元素指定屬性的值
+    $attr: (target_value: string) => string | undefined;
+
+    // 獲取元素指定 data 屬性的值
+    $data: (target_value: string) => string | undefined;
+
+    // 移除元素的所有類別名稱
     class__: () => Element;
 
-    // 添加 class
-    // Adds a class or classes to the element
-    // Example: element._class('new-class');
-    _class: (value?: string | string[]) => Element;
+    // 清空並重新設置元素的類別名稱
+    __class: (class_value?: string | string[]) => Element;
 
-    // 覆蓋 class
-    // Replaces the element's classes with new ones
-    // Example: element.__class('new-class');
-    __class: (value?: string | string[]) => Element;
+    // 檢查元素是否包含指定的類別名稱
+    $$class: (value: string) => boolean;
 
-    // 判斷 class 是否存在
-    // Checks if the element has a certain class
-    // Example: console.log(element.$$class('my-class'));
-    $$class: (value?: string) => boolean;
+    // 根據條件添加或移除類別名稱
+    $$class_: (check_bool?: boolean, class_value?: string | string[]) => Element;
 
-    // 假如 true 則移除 class
-    // Adds or removes a class based on a boolean
-    // Example: element.$$class_(true, 'my-class');
-    $$class_: (bool?: boolean, value?: string | string[]) => Element;
+    // 檢查元素是否包含指定的 data 屬性，或其值是否符合指定值
+    $$data: (key: string, value?: string) => boolean;
 
-    // 假如 true 則添加 class
-    // Adds or removes a class based on a boolean
-    // Example: element.$$_class(true, 'my-class');
-    $$_class: (bool?: boolean, value?: string | string[]) => Element;
+    // 檢查元素是否包含指定的屬性，或其值是否符合指定值
+    $$attr: (key: string, value?: string) => boolean;
 
-    // 移除 style
-    // Removes a style property or properties from the element
-    // Example: element.style_('color');
-    style_: (key?: string | string[]) => Element;
-
-    // 添加 style
-    // Adds a style property or properties to the element
-    // Example: element._style({ color: 'red' });
-    _style: (value?: { [key: string]: string }) => Element;
-
-    // 取得 style
-    // Gets the value of a style property
-    // Example: console.log(element.$style('color'));
-    $style: (key?: string) => string | undefined;
-
-    // 移除 data
-    // Removes a data attribute or attributes from the element
-    // Example: element.data_('key');
-    data_: (key?: string | string[]) => Element;
-
-    // 添加 data
-    // Adds a data attribute or attributes to the element
-    // Example: element._data({ key: 'value' });
-    _data: (value?: { [key: string]: string | number }) => Element;
-
-    // 移除 attribute
-    // Removes an attribute or attributes from the element
-    // Example: element.attr_('key');
-    attr_: (key?: string | string[]) => Element;
-
-    // 添加 attribute
-    // Adds an attribute or attributes to the element
-    // Example: element._attr({ key: 'value' });
-    _attr: (value?: { [key: string]: string | number }) => Element;
-
-    // 取得 attribute
-    // Gets the value of an attribute
-    // Example: console.log(element.$attr('key'));
-    $attr: (key?: string) => string | null;
-
-    // 判斷 attribute 是否存在
-    // Checks if an attribute exists
-    // Example: console.log(element.$$attr('key'));
-    $$attr: (key?: string) => boolean;
-
-    // 添加元素
-    // Adds a child element or content
-    // Example: element._child('div'._("Content"));
+    // 添加子元素或內容到元素中
     _child: (value?: ChildNode | Element | string | number | (ChildNode | Element | string | number)[], before?: ChildNode | Element | number) => Element;
 
-    // 覆蓋內容
-    // Replaces the content of the element
-    // Example: element.__child('div'._("Content"));
+    // 清空並重新設置元素的子元素或內容
     __child: (value?: ChildNode | Element | string | number | (ChildNode | Element | string | number)[]) => Element;
 
-    // 取得子元素
-    // Gets a child element by index or selector
-    // Example: console.log(element.$child(0));
+    // 獲取指定的子元素
     $child: (value?: string | number | (string | number)[]) => Element | undefined;
 
-    // 取得父元素
-    // Gets the parent element, optionally several layers up
-    // Example: console.log(element.$parent(1));
-    $parent: (layer?: number) => Element | undefined;
+    // 獲取元素的父元素，可指定層級
+    $parent: (layer_count?: number) => Element | undefined;
 
-    // 取得前元素
-    // Gets the previous sibling element
-    // Example: console.log(element.$pre());
-    $pre: (index?: number) => Element | undefined;
+    // 獲取元素的前一個兄弟元素，可指定偏移量
+    $pre: (layer_count?: number) => Element | undefined;
 
-    // 取得後元素
-    // Gets the next sibling element
-    // Example: console.log(element.$next());
-    $next: (index?: number) => Element | undefined;
+    // 獲取元素的後一個兄弟元素，可指定偏移量
+    $next: (layer_count?: number) => Element | undefined;
 
-    // 選擇器 querySelector
-    // Uses querySelector to find a child element
-    // Example: console.log(element.$sel('.child'));
-    $sel: (filter?: string) => Element | undefined;
+    // 使用 CSS 選擇器查找單個元素
+    $sel: (querySelector: string) => Element | undefined;
 
-    // 選擇器 querySelectorAll
-    // Uses querySelectorAll to find child elements
-    // Example: console.log(element.$selAll('.child'));
-    $selAll: (filter?: string) => Element[];
+    // 使用 CSS 選擇器查找多個元素
+    $selAll: (querySelector: string) => Element[];
 
-    // 設定 video 屬性
-    // Sets properties for a video element
-    // Example: element._video({ controls: true });
+    // 設置元素的 href 屬性並將 target 設為 _self
+    _go: (href_value: string) => Element;
+
+    // 設置元素的 href 屬性並將 target 設為 _blank
+    _open: (href_value: string) => Element;
+
+    // 設置 video 元素的屬性
     _video: (value: { [key: string]: any }) => Element;
 
-    // 擴展 style 顯示屬性
-    // Sets the display style property of the element
-    // Example: element._display('block');
+    // 設置元素的 display 樣式
     _display: (value: string) => Element;
 
-    // 滾動到指定 X 座標
-    // Scrolls the element to a specific X position
-    // Example: element.scrollToX(100);
-    scrollToX: (value: number) => Element;
+    // 將元素水平滾動到指定位置
+    scrollToX: (offset_value: number) => Element;
 
-    // 滾動到指定 Y 座標
-    // Scrolls the element to a specific Y position
-    // Example: element.scrollToY(100);
-    scrollToY: (value: number) => Element;
+    // 將元素垂直滾動到指定位置
+    scrollToY: (offset_value: number) => Element;
 
-    // 滾動到頂部
-    // Scrolls the element to the top
-    // Example: element.scrollToT();
+    // 將元素滾動到頂部
     scrollToT: () => Element;
 
-    // 滾動到左側
-    // Scrolls the element to the left side
-    // Example: element.scrollToL();
+    // 將元素滾動到最左側
     scrollToL: () => Element;
 
-    // 滾動到底部
-    // Scrolls the element to the bottom
-    // Example: element.scrollToB();
+    // 將元素滾動到底部
     scrollToB: () => Element;
 
-    // 滾動到右側
-    // Scrolls the element to the right side
-    // Example: element.scrollToR();
+    // 將元素滾動到最右側
     scrollToR: () => Element;
 
-    // 預計於 2.*.* 版移除 
-    // Marked for removal in version 2.*.*
+    // * FormData 擴展
 
-    // 返回子元素的數量
-    // Returns the number of child elements
-    // Example: console.log(element.$len);
+    // 獲取表單元素的 FormData 對象
+    $formData: FormData | undefined;
+
+    // 將表單元素的 FormData 轉換為 Map 對象
+    $map: Map<string, any> | undefined;
+
+    // 將表單元素的 FormData 轉換為 JSON 對象
+    $json: $JSON | undefined;
+
+    // ! 待移除
+
+    // 獲取子元素數量
+    // ! 預計於 2.*.* 版移除
     $len: number;
 
-    // 返回元素的 attributes 的陣列
-    // Returns a map of the element's attributes
-    // Example: console.log(element.$attrAll);
+    // 獲取元素的所有屬性，以物件形式返回
+    // ! 預計於 2.*.* 版移除
     $attrAll: { [key: string]: string };
 
-    // 返回元素的 classList 的陣列
-    // Returns the classList of the element as an array
-    // Example: console.log(element.$classAll);
+    // 獲取元素的所有類別名稱，以陣列形式返回
+    // ! 預計於 2.*.* 版移除
     $classAll: string[];
 
-    // 返回子元素的陣列
-    // Returns an array of child elements
-    // Example: console.log(element.$childAll);
+    // 獲取元素的所有子元素，以陣列形式返回
+    // ! 預計於 2.*.* 版移除
     $childAll: Element[];
 
-    // 返回子節點的陣列
-    // Returns an array of child nodes
-    // Example: console.log(element.$nodeAll);
+    // 獲取元素的所有子節點，包括文字節點和註釋節點
+    // ! 預計於 2.*.* 版移除
     $nodeAll: ChildNode[];
 
+    // 一次性設置元素的所有內邊距
+    // ! 預計於 2.*.* 版移除
+    _p: (top?: number | string, right?: number | string, bottom?: number | string, left?: number | string) => Element;
+
+    // 設置元素的上內邊距
+    // ! 預計於 2.*.* 版移除
+    _pt: (value?: number | string) => Element;
+
+    // 設置元素的左內邊距
+    // ! 預計於 2.*.* 版移除
+    _pl: (value?: number | string) => Element;
+
+    // 設置元素的下內邊距
+    // ! 預計於 2.*.* 版移除
+    _pb: (value?: number | string) => Element;
+
+    // 設置元素的右內邊距
+    // ! 預計於 2.*.* 版移除
+    _pr: (value?: number | string) => Element;
+
+    // 一次性設置元素的所有外邊距
+    // ! 預計於 2.*.* 版移除
+    _m: (top?: number | string, right?: number | string, bottom?: number | string, left?: number | string) => Element;
+
+    // 設置元素的上外邊距
+    // ! 預計於 2.*.* 版移除
+    _mt: (value?: number | string) => Element;
+
+    // 設置元素的左外邊距
+    // ! 預計於 2.*.* 版移除
+    _ml: (value?: number | string) => Element;
+
+    // 設置元素的下外邊距
+    // ! 預計於 2.*.* 版移除
+    _mb: (value?: number | string) => Element;
+
+    // 設置元素的右外邊距
+    // ! 預計於 2.*.* 版移除
+    _mr: (value?: number | string) => Element;
+
     // 移除元素
-    // Removes the element from the DOM
-    // Example: element.$rm();
+    // ! 預計於 2.*.* 版移除
     $rm: () => void;
+
+    // 根據條件添加類別名稱
+    // ! 預計於 2.*.* 版移除
+    $$_class: (bool?: boolean, value?: string | string[]) => Element;
 };
 
 interface DocumentFragment {
     // 返回 DocumentFragment 的 HTML 字串表示
-    // Returns the HTML string representation of the DocumentFragment
-    // Example: console.log(fragment.$html);
     $html: string;
 
     // 返回子元素的陣列
-    // Returns an array of child elements
-    // Example: console.log(fragment.$children);
     $children: Element[];
 
     // 返回子節點的陣列
-    // Returns an array of child nodes
-    // Example: console.log(fragment.$childNodes);
     $childNodes: ChildNode[];
 
     // 返回子元素的數量
-    // Returns the number of child elements
-    // Example: console.log(fragment.length);
     length: number;
 
     // 複製元素，可選擇深層複製
-    // Clones the element, with an option for deep cloning
-    // Example: const clonedFragment = fragment._$(true);
     _$: (deep?: boolean) => Element;
 
     // 添加元素
-    // Adds a child element or text
-    // Example: fragment._child('Text Content'); 
-    // Example: fragment._child([document.createElement('div'), 'More Text']);
     _child: (value?: ChildNode | Element | string | number | (ChildNode | Element | string | number)[]) => DocumentFragment;
 
-
-
-    // 預計於 2.*.* 版移除 
-    // Marked for removal in version 2.*.*
-
     // 返回子元素的數量，將被移除
-    // Returns the number of child elements, to be removed
-    // Example: console.log(fragment.$len); 
+    // ! 預計於 2.*.* 版移除 
     $len: number;
 
     // 返回子元素的陣列，將被移除
-    // Returns an array of child elements, to be removed
-    // Example: console.log(fragment.$childAll);
+    // ! 預計於 2.*.* 版移除 
     $childAll: Element[];
 
     // 返回子節點的陣列，將被移除
-    // Returns an array of child nodes, to be removed
-    // Example: console.log(fragment.$nodeAll);
+    // ! 預計於 2.*.* 版移除 
     $nodeAll: ChildNode[];
 
     // 返回 DocumentFragment 的 HTML 字串表示，將被移除
-    // Returns the HTML string representation of the DocumentFragment, to be removed
-    // Example: console.log(fragment.$str);
+    // ! 預計於 2.*.* 版移除 
     $str: string;
 };
