@@ -7,46 +7,66 @@
 <html lang="zh-Hans-TW">
 
     <head>
-        <!-- 基本設定 -->
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+        <meta name="theme-color" content="#ffffff">
         <meta name="robots" content="index, follow">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
-        <meta name="theme-color" content="#000000">
 
-        <!-- 網頁標題與描述 -->
-        <title>PDRenderKit 輕量化前端框架</title>
-        <meta name="description" content="(JavaScript Lib) PDRenderKit contains a lightweight front-end framework designed to separate the front-end user interface and data logic. 邱敬幃 Pardn Chiu.">
+        <!-- SEO 標題與描述 -->
+        <title>RenderJS - 靈活高效的前端渲染工具 - 邱敬幃</title>
+        <meta name="title" content="RenderJS - 靈活高效的前端渲染工具 - 邱敬幃">
+        <meta name="description" content="RenderJS 是一款專注於即時 DOM 操作與靈活工具集的前端渲染工具，適合快速開發小型專案及高自由度的 UI 特效。">
+        <meta name="keywords" content="RenderJS, JavaScript, Frontend Rendering Tool, DOM Operations, Lightweight Tools, Rapid Prototyping, UI Effects, Flexible Development">
+        <meta name="author" content="RenderJS Dev Team">
+        <link rel="canonical" href="https://example.com/RenderJS/">
 
-        <!-- Open Graph 資訊 -->
-        <meta property="og:title" content=">PDRenderKit 輕量化前端框架">
-        <meta property="og:description" content="(JavaScript Lib) PDRenderKit contains a lightweight front-end framework designed to separate the front-end user interface and data logic. 邱敬幃 Pardn Chiu.">
-        <meta property="og:image" content="https://opengraph.githubassets.com/1/pardnchiu/PDRenderKit">
-        <meta property="og:url" content="https://pardnchiu.github.io/PDRenderKit">
+        <!-- Favicon -->
+        <link rel="icon" href="./static/image/logo.png" type="image/x-icon">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="RenderJS - 靈活高效的前端渲染工具 - 邱敬幃">
+        <meta property="og:description" content="RenderJS 是一款專注於即時 DOM 操作與靈活工具集的前端渲染工具，適合快速開發小型專案及高自由度的 UI 特效。">
+        <meta property="og:image" content="./static/image/website.jpg">
+        <meta property="og:url" content="https://example.com/RenderJS/">
+        <meta property="og:site_name" content="RenderJS">
         <meta property="og:type" content="website">
-        <meta property="og:site_name" content="PDRenderKit 輕量化前端框架">
+        <meta property="og:locale" content="zh_TW">
 
-        <!-- Twitter 卡片資訊 -->
-        <meta property="twitter:title" content=">PDRenderKit 輕量化前端框架">
-        <meta property="twitter:description" content="(JavaScript Lib) PDRenderKit contains a lightweight front-end framework designed to separate the front-end user interface and data logic. 邱敬幃 Pardn Chiu.">
-        <meta property="twitter:image" content="https://opengraph.githubassets.com/1/pardnchiu/PDRenderKit">
-        <meta property="twitter:image:alt" content="PDRenderKit 輕量化前端框架">
-        <meta property="twitter:url" content="https://pardnchiu.github.io/PDRenderKit">
-        <meta property="twitter:site" content="@pardnchiu">
-        <meta property="twitter:card" content="summary_large_image">
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="twitter:title" content="RenderJS - 靈活高效的前端渲染工具 - 邱敬幃">
+        <meta property="twitter:description" content="RenderJS 是一款專注於即時 DOM 操作與靈活工具集的前端渲染工具，適合快速開發小型專案及高自由度的 UI 特效。">
+        <meta property="twitter:image" content="./static/image/website.jpg">
+        <meta property="twitter:url" content="https://example.com/RenderJS/">
 
-        <!-- Mobile App 設定 -->
-        <meta name="mobile-web-app-capable" content="no">
-        <meta name="apple-mobile-web-app-capable" content="no">
-        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <!-- Google Verification -->
+        <meta name="google-site-verification" content="example-verification-token">
 
-        <!-- 網站圖標 -->
-        <link rel="apple-touch-icon" href="">
-        <link rel="apple-touch-icon-precomposed" href="">
-        <link rel="icon" href="" type="image/x-icon">
+        <!-- Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXAMPLE"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'G-EXAMPLE');
+        </script>
 
-        <!-- 驗證標籤 -->
-        <meta name="google-site-verification" content="YQQ2f6AchR8dcb55Az2BYd_mw4TrP0J1RApD-v2v65Y" />
+        <!-- JSON-LD Schema -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "RenderJS - 靈活高效的前端渲染工具 - 邱敬幃",
+            "description": "RenderJS 是一款專注於即時 DOM 操作與靈活工具集的前端渲染工具，適合快速開發小型專案及高自由度的 UI 特效。",
+            "url": "https://example.com/RenderJS/",
+            "creator": {
+                "@type": "Organization",
+                "name": "RenderJS Dev Team"
+            },
+            "image": "./static/image/website.jpg"
+        }
+        </script>
 
         <!-- 樣式與字型 -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -56,28 +76,46 @@
 
         <!-- 資源預載: https://cdn.jsdelivr.net -->
         <link rel="preconnect" href="https://cdn.jsdelivr.net">
-        <link rel="preload" href="https://cdn.jsdelivr.net/gh/pardnchiu/PDMarkdownKit@1.0.0/dist/PDMarkdownKit.js" as="script">
-        <script src="./dist/PDRenderKit.js" copyright="Pardn Ltd"></script>
+        <link rel="preload" href="https://cdn.jsdelivr.net/npm/@pardnchiu/nanomd@1.8.5/dist/NanoMD.js" as="script">
+        <script src="./dist/RenderJS.js" copyright="Pardn Ltd"></script>
 
         <!-- 資源預載: https://pardnchiu.github.io -->
-        <link rel="preconnect" href="https://pardnchiu.github.io">
-        <link rel="preload" href="https://pardnchiu.github.io/css/index.css" as="style">
-        <link rel="stylesheet" href="https://pardnchiu.github.io/css/index.css">
+        <!-- <link rel="preconnect" href="https://pardnchiu.github.io"> -->
+        <!-- <link rel="preload" href="https://pardnchiu.github.io/css/index.css" as="style"> -->
+        <!-- <link rel="stylesheet" href="https://pardnchiu.github.io/css/index.css"> -->
+
+        <script src="https://cdn.jsdelivr.net/npm/@pardnchiu/nanomd@1.8.5/dist/NanoMD.js"></script>
 
         <!-- 本地資源 -->
         <script type="module" src="./static/js/index.js"></script>
+
+        <style>
+            html {
+                width: 100vw;
+                height: 100vh;
+            }
+
+            * {
+                margin: 0;
+                padding: 0;
+            }
+        </style>
     </head>
 
-    <body id="app" class="md">
-        <nav id="nav" style="max-width: 1024px;" :test="test {{ CALC(num * 2) }}">
-            <a class="dom-temp" href="https://github.com/pardnchiu" target="_blank">
-                <i class="fa-brands fa-github"></i>
-            </a>
-            <img class="head dom-temp" src="https://pardn.io/image/head-s.jpg" alt="邱敬幃 Pardn Chiu" onclick="window.open('https://linkedin.com/in/pardnchiu')">
-            <a class="dom-temp" href="mailto:mail@pardn.ltd">
-                <i class="fa-regular fa-envelope"></i>
-            </a>
-        </nav>
+    <body id="app" class="md" data-md="1" :display="flex" :flex-flow="column" :justify-content="center" :align-items="center" :width="100%" :height="100%">
+        <h1 :font-size="3rem">RenderJS</h1>
+        <h2 :font-size="1.5rem">網頁前端渲染工具</h2>
+        <img src="https://img.shields.io/npm/v/@pardnchiu/renderjs" alt="npm版本" :margin-top="1rem">
+        <p :margin="2rem 0 0" :text-align="center">尚未有好的介紹頁想法<br>請先查閱 README 了解項目</p>
+        <section :display="flex" :justify-content="center" :align-items="center" :gap="1.5rem" :margin="2rem 0 0">
+            <a href="https://github.com/pardnchiu/RenderJS" target="_blank" :padding="0 1rem" :line-height="2.5rem" :border="1px solid #000" :border-radius="0.5rem" :background-color="#000" :color="#fff" :text-decoration="none">GitHub</a>
+            <a href="https://www.npmjs.com/package/@pardnchiu/renderjs" target="_blank" :padding="0 1rem" :line-height="2.5rem" :border="1px solid #000" :border-radius="0.5rem" :color="#000" :text-decoration="none">npm</a>
+        </section>
+        <section :display="flex" :flex-flow="column" :justify-content="center" :align-items="center" :gap="0.5rem" :margin="5rem 0 0">
+            <p>Created by 邱敬幃</p>
+            <p><a href="https://github.com/pardnchiu/RenderJS" target="_blank" :color="#000">RenderJS</a> on GitHub</p>
+            <p>© 2022 - 2024</p>
+        </section>
     </body>
 
 </html>
